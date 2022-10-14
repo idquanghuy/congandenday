@@ -1,0 +1,349 @@
+[
+  {
+    "gameType": "CL_Game",
+    "content": "L",
+    "numberTLS": [
+      1,
+      3,
+      5,
+      7
+    ],
+    "amount": 2.31,
+    "resultType": "end"
+  },
+  {
+    "gameType": "CL_Game",
+    "content": "C",
+    "numberTLS": [
+      2,
+      4,
+      6,
+      8
+    ],
+    "amount": 2.31,
+    "resultType": "end"
+  },
+  {
+    "gameType": "TX_Game",
+    "content": "X",
+    "numberTLS": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "amount": 2.31,
+    "resultType": "end"
+  },
+  {
+    "gameType": "TX_Game",
+    "content": "T",
+    "numberTLS": [
+      5,
+      6,
+      7,
+      8
+    ],
+    "amount": 2.31,
+    "resultType": "end"
+  },
+  {
+    "gameType": "CL2_Game",
+    "content": "L2",
+    "numberTLS": [
+      1,
+      3,
+      5,
+      7,
+      9
+    ],
+    "amount": 1.96,
+    "resultType": "end"
+  },
+  {
+    "gameType": "CL2_Game",
+    "content": "C2",
+    "numberTLS": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ],
+    "amount": 1.96,
+    "resultType": "end"
+  },
+  {
+    "gameType": "CL2_Game",
+    "content": "X2",
+    "numberTLS": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "amount": 1.96,
+    "resultType": "end"
+  },
+  {
+    "gameType": "CL2_Game",
+    "content": "T2",
+    "numberTLS": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "amount": 1.96,
+    "resultType": "end"
+  },
+  {
+    "gameType": "G3_Game",
+    "content": "G3",
+    "numberTLS": [
+      "02",
+      13,
+      17,
+      19,
+      21,
+      29,
+      35,
+      37,
+      47,
+      49,
+      51,
+      54,
+      57,
+      63,
+      64,
+      74,
+      83,
+      91,
+      95,
+      96
+    ],
+    "amount": 3,
+    "resultType": "end"
+  },
+  {
+    "gameType": "G3_Game",
+    "content": "G3",
+    "numberTLS": [
+      66,
+      99
+    ],
+    "amount": 4,
+    "resultType": "end"
+  },
+  {
+    "gameType": "G3_Game",
+    "content": "G3",
+    "numberTLS": [
+      123,
+      234,
+      456,
+      678,
+      789
+    ],
+    "amount": 5,
+    "resultType": "end"
+  },
+  {
+    "gameType": "T3_Game",
+    "content": "S",
+    "numberTLS": [
+      7,
+      17,
+      27
+    ],
+    "amount": 2,
+    "resultType": "count_3"
+  },
+  {
+    "gameType": "T3_Game",
+    "content": "S",
+    "numberTLS": [
+      8,
+      18
+    ],
+    "amount": 3,
+    "resultType": "count_3"
+  },
+  {
+    "gameType": "T3_Game",
+    "content": "S",
+    "numberTLS": [
+      9,
+      19
+    ],
+    "amount": 3.5,
+    "resultType": "count_3"
+  },
+  {
+    "gameType": "1/3_Game",
+    "content": "N1",
+    "numberTLS": [
+      1,
+      2,
+      3
+    ],
+    "amount": 3,
+    "resultType": "end"
+  },
+  {
+    "gameType": "1/3_Game",
+    "content": "N2",
+    "numberTLS": [
+      4,
+      5,
+      6
+    ],
+    "amount": 3,
+    "resultType": "end"
+  },
+  {
+    "gameType": "1/3_Game",
+    "content": "N3",
+    "numberTLS": [
+      7,
+      8,
+      9
+    ],
+    "amount": 3,
+    "resultType": "end"
+  },
+  {
+    "gameType": "X_Game",
+    "content": "CX",
+    "numberTLS": [
+      0,
+      2,
+      4
+    ],
+    "amount": 3.3,
+    "resultType": "end"
+  },
+  {
+    "gameType": "X_Game",
+    "content": "LT",
+    "numberTLS": [
+      5,
+      7,
+      9
+    ],
+    "amount": 3.3,
+    "resultType": "end"
+  },
+  {
+    "gameType": "X_Game",
+    "content": "CT",
+    "numberTLS": [
+      6,
+      8
+    ],
+    "amount": 3.3,
+    "resultType": "end"
+  },
+  {
+    "gameType": "X_Game",
+    "content": "LX",
+    "numberTLS": [
+      1,
+      3
+    ],
+    "amount": 3.3,
+    "resultType": "end"
+  },
+  {
+    "gameType": "DS_Game",
+    "content": "D0",
+    "numberTLS": [
+      0
+    ],
+    "amount": 7,
+    "resultType": "end"
+  },
+  {
+    "gameType": "DS_Game",
+    "content": "D1",
+    "numberTLS": [
+      1
+    ],
+    "amount": 7,
+    "resultType": "end"
+  },
+  {
+    "gameType": "DS_Game",
+    "content": "D2",
+    "numberTLS": [
+      2
+    ],
+    "amount": 7,
+    "resultType": "end"
+  },
+  {
+    "gameType": "DS_Game",
+    "content": "D3",
+    "numberTLS": [
+      3
+    ],
+    "amount": 7,
+    "resultType": "end"
+  },
+  {
+    "gameType": "DS_Game",
+    "content": "D4",
+    "numberTLS": [
+      4
+    ],
+    "amount": 7,
+    "resultType": "end"
+  },
+  {
+    "gameType": "DS_Game",
+    "content": "D5",
+    "numberTLS": [
+      5
+    ],
+    "amount": 7,
+    "resultType": "end"
+  },
+  {
+    "gameType": "DS_Game",
+    "content": "D6",
+    "numberTLS": [
+      6
+    ],
+    "amount": 7,
+    "resultType": "end"
+  },
+  {
+    "gameType": "DS_Game",
+    "content": "D7",
+    "numberTLS": [
+      7
+    ],
+    "amount": 7,
+    "resultType": "end"
+  },
+  {
+    "gameType": "DS_Game",
+    "content": "D8",
+    "numberTLS": [
+      8
+    ],
+    "amount": 7,
+    "resultType": "end"
+  },
+  {
+    "gameType": "DS_Game",
+    "content": "D9",
+    "numberTLS": [
+      9
+    ],
+    "amount": 7,
+    "resultType": "end"
+  }
+]

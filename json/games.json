@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Chẳn Lẻ",
+    "gameType": "CL_Game",
+    "description": "Với nội dung : <b>C</b> hoặc <b>L</b> (nếu đuôi mã giao dịch có các số sau)",
+    "display": "show"
+  },
+  {
+    "name": "Tài Xỉu",
+    "gameType": "TX_Game",
+    "description": "Với nội dung : <b>T</b> hoặc <b>X</b> (nếu đuôi mã giao dịch có các số sau)",
+    "display": "show"
+  },
+  {
+    "name": "Chẳn Lẻ 2",
+    "gameType": "CL2_Game",
+    "description": "Với nội dung : <b>C2</b> hoặc <b>L2</b> hoặc <b>T2</b> hoặc <b>X2</b> (nếu đuôi mã giao dịch có các số sau)",
+    "display": "show"
+  },
+  {
+    "name": "Gấp 3",
+    "gameType": "G3_Game",
+    "description": "Với nội dung : <b>G3</b> (nếu đuôi mã giao dịch có các số sau)",
+    "display": "show"
+  },
+  {
+    "name": "Tổng 3 Số",
+    "gameType": "T3_Game",
+    "description": "Với nội dung : <b>S</b> (nếu tổng 3 số cuối của mã giao dịch có các số sau)",
+    "display": "show"
+  },
+  {
+    "name": "1 Phần 3",
+    "gameType": "1/3_Game",
+    "description": "Với nội dung : <b>N1</b> hoặc <b>N2</b> hoặc <b>N3</b> (nếu đuôi mã giao dịch có các số sau)",
+    "display": "show"
+  },
+  {
+    "name": "Xiên",
+    "gameType": "X_Game",
+    "description": "Với nội dung : <b>CX</b> hoặc <b>LT</b> hoặc <b>CT</b> hoặc <b>LX</b> (nếu đuôi mã giao dịch có các số sau)",
+    "display": "show"
+  },
+  {
+    "name": "Đoán Số",
+    "gameType": "DS_Game",
+    "description": "Nếu mã giao dịch có số cuối trùng với 1 trong 3 số trên, bạn sẽ chiến thắng",
+    "display": "show"
+  }
+]
