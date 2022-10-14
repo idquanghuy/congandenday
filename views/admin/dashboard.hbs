@@ -1,0 +1,569 @@
+{{> header }}
+{{> navbar }}
+<style>
+    .page {
+        background: url(../assets/images/bg-01.jpg);
+    }
+</style>
+<main class="container">
+    <div class="mainbar"></div>
+    <h3 class="text-white text-center">Ngày {{ formatDate _revenueDay 'DD/MM/YYYY'}}
+        <span class="hand change-time" data-id="_revenueDay"><i class="fas fa-calendar-alt"></i></span>
+    </h3>
+    <div class="row row-cards moneyDay">
+        <div class="col-sm-12 col-lg-4 col-md-6">
+            <div class="card card-img-holder text-default bg-color">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="circle-icon bg-primary text-center align-self-center shadow-primary">
+                            <img src="../assets/images/circle.svg" style="margin-left: 0px;" class="card-img-absolute">
+                            <i class="far fa-money-bill fs-30  text-white mt-4"></i>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <div class="card-body p-4">
+                            <h2 class="mb-3"><span class="receipt">{{ numberFormat revenueData.moneyDay.receipt
+                                    }}</span>đ</h2>
+                            <h5 class="font-weight-normal mb-0">Tổng Nhận</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-4 col-md-6">
+            <div class="card card-img-holder text-default">
+                <div class="row">
+                    <div class="col-3">
+                        <div
+                            class="card-img-absolute circle-icon bg-secondary align-items-center text-center shadow-secondary">
+                            <img src="../assets/images/circle.svg" style="margin-left: 0px;" class="card-img-absolute">
+                            <i class="far fa-satellite-dish fs-30 text-white mt-4"></i>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <div class="card-body p-4">
+                            <h2 class="mb-3"><span class="minus">{{ numberFormat revenueData.moneyDay.minus }}</span>đ
+                            </h2>
+                            <h5 class="font-weight-normal mb-0">Tổng Chi</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-4 col-md-6">
+            <div class="card card-img-holder text-default">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="card-img-absolute circle-icon bg-info align-items-center text-center shadow-info">
+                            <img src="../assets/images/circle.svg" style="margin-left: 0px;" class="card-img-absolute">
+                            <i class="far fa-heart-rate fs-30 text-white mt-4"></i>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <div class="card-body p-4">
+                            <h2 class="mb-3"><span class="earning">{{ numberFormat revenueData.moneyDay.earning
+                                    }}</span>đ</h2>
+                            <h5 class="font-weight-normal mb-0">Doanh Thu</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-cards betDay">
+        <div class="col-sm-12 col-lg-3 col-md-6">
+            <div class="card card-img-holder text-default bg-color">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="circle-icon bg-success text-center align-self-center shadow-success">
+                            <img src="../assets/images/circle.svg" style="margin-left: 0px;" class="card-img-absolute">
+                            <i class="fas fa-badge-check fs-30  text-white mt-4"></i>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="card-body p-4">
+                            <h2 class="mb-3"><span class="win">{{ numberFormat revenueData.betDay.win }}</span></h2>
+                            <h5 class="font-weight-normal mb-0">Tổng Thắng</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-3 col-md-6">
+            <div class="card card-img-holder text-default">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="card-img-absolute circle-icon bg-gray align-items-center text-center shadow-gray">
+                            <img src="../assets/images/circle.svg" style="margin-left: 0px;" class="card-img-absolute">
+                            <i class="fas fa-window-close fs-30 text-white mt-4"></i>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="card-body p-4">
+                            <h2 class="mb-3"><span class="won">{{ numberFormat revenueData.betDay.won }}</span></h2>
+                            <h5 class="font-weight-normal mb-0">Tổng Thua</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-3 col-md-6">
+            <div class="card card-img-holder text-default">
+                <div class="row">
+                    <div class="col-4">
+                        <div
+                            class="card-img-absolute circle-icon bg-danger align-items-center text-center shadow-danger">
+                            <img src="../assets/images/circle.svg" style="margin-left: 0px;" class="card-img-absolute">
+                            <i class="fas fa-exclamation-triangle fs-30 text-white mt-4"></i>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="card-body p-4">
+                            <h2 class="mb-3"><span class="error">{{ numberFormat revenueData.betDay.error }}</span></h2>
+                            <h5 class="font-weight-normal mb-0">Tổng Lỗi</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-3 col-md-6">
+            <div class="card card-img-holder text-default">
+                <div class="row">
+                    <div class="col-4">
+                        <div
+                            class="card-img-absolute circle-icon bg-warning align-items-center text-center shadow-warning">
+                            <img src="../assets/images/circle.svg" style="margin-left: 0px;" class="card-img-absolute">
+                            <i class="fas fa-undo-alt fs-30 text-white mt-4"></i>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="card-body p-4">
+                            <h2 class="mb-3"><span class="refund">{{ numberFormat revenueData.betDay.refund }}</span>
+                            </h2>
+                            <h5 class="font-weight-normal mb-0">Tổng Hoàn Tiền</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h3 class="text-white text-center">Tháng {{ formatDate _revenueMonth 'MM/YYYY'}}
+        <span class="hand change-time" data-id="_revenueMonth"><i class="fas fa-calendar-alt"></i></span>
+    </h3>
+    <div class="row row-cards moneyMonth">
+        <div class="col-sm-12 col-lg-4 col-md-6">
+            <div class="card card-img-holder text-default bg-color">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="circle-icon bg-primary text-center align-self-center shadow-primary">
+                            <img src="../assets/images/circle.svg" style="margin-left: 0px;" class="card-img-absolute">
+                            <i class="far fa-money-bill fs-30  text-white mt-4"></i>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <div class="card-body p-4">
+                            <h2 class="mb-3"><span class="receipt">{{ numberFormat revenueData.moneyMonth.receipt
+                                    }}</span>đ</h2>
+                            <h5 class="font-weight-normal mb-0">Tổng Nhận</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-4 col-md-6">
+            <div class="card card-img-holder text-default">
+                <div class="row">
+                    <div class="col-3">
+                        <div
+                            class="card-img-absolute circle-icon bg-secondary align-items-center text-center shadow-secondary">
+                            <img src="../assets/images/circle.svg" style="margin-left: 0px;" class="card-img-absolute">
+                            <i class="far fa-satellite-dish fs-30 text-white mt-4"></i>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <div class="card-body p-4">
+                            <h2 class="mb-3"><span class="minus">{{ numberFormat revenueData.moneyMonth.minus }}</span>đ
+                            </h2>
+                            <h5 class="font-weight-normal mb-0">Tổng Chi</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-4 col-md-6">
+            <div class="card card-img-holder text-default">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="card-img-absolute circle-icon bg-info align-items-center text-center shadow-info">
+                            <img src="../assets/images/circle.svg" style="margin-left: 0px;" class="card-img-absolute">
+                            <i class="far fa-heart-rate fs-30 text-white mt-4"></i>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <div class="card-body p-4">
+                            <h2 class="mb-3"><span class="earning">{{ numberFormat revenueData.moneyMonth.earning
+                                    }}</span>đ</h2>
+                            <h5 class="font-weight-normal mb-0">Doanh Thu</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-cards betMonth">
+        <div class="col-sm-12 col-lg-3 col-md-6">
+            <div class="card card-img-holder text-default bg-color">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="circle-icon bg-success text-center align-self-center shadow-success">
+                            <img src="../assets/images/circle.svg" style="margin-left: 0px;" class="card-img-absolute">
+                            <i class="fas fa-badge-check fs-30  text-white mt-4"></i>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="card-body p-4">
+                            <h2 class="mb-3"><span class="win">{{ numberFormat revenueData.betMonth.win }}</span></h2>
+                            <h5 class="font-weight-normal mb-0">Tổng Thắng</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-3 col-md-6">
+            <div class="card card-img-holder text-default">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="card-img-absolute circle-icon bg-gray align-items-center text-center shadow-gray">
+                            <img src="../assets/images/circle.svg" style="margin-left: 0px;" class="card-img-absolute">
+                            <i class="fas fa-window-close fs-30 text-white mt-4"></i>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="card-body p-4">
+                            <h2 class="mb-3"><span class="won">{{ numberFormat revenueData.betMonth.won }}</span></h2>
+                            <h5 class="font-weight-normal mb-0">Tổng Thua</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-3 col-md-6">
+            <div class="card card-img-holder text-default">
+                <div class="row">
+                    <div class="col-4">
+                        <div
+                            class="card-img-absolute circle-icon bg-danger align-items-center text-center shadow-danger">
+                            <img src="../assets/images/circle.svg" style="margin-left: 0px;" class="card-img-absolute">
+                            <i class="fas fa-exclamation-triangle fs-30 text-white mt-4"></i>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="card-body p-4">
+                            <h2 class="mb-3"><span class="error">{{ numberFormat revenueData.betMonth.error }}</span>
+                            </h2>
+                            <h5 class="font-weight-normal mb-0">Tổng Lỗi</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-3 col-md-6">
+            <div class="card card-img-holder text-default">
+                <div class="row">
+                    <div class="col-4">
+                        <div
+                            class="card-img-absolute circle-icon bg-warning align-items-center text-center shadow-warning">
+                            <img src="../assets/images/circle.svg" style="margin-left: 0px;" class="card-img-absolute">
+                            <i class="fas fa-undo-alt fs-30 text-white mt-4"></i>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="card-body p-4">
+                            <h2 class="mb-3"><span class="refund">{{ numberFormat revenueData.betMonth.refund }}</span>
+                            </h2>
+                            <h5 class="font-weight-normal mb-0">Tổng Hoàn Tiền</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h3 class="text-white text-center">Thống Kê Tổng Giao Dịch</h3>
+    <div class="row row-cards betAll">
+        <div class="col-sm-12 col-lg-3 col-md-6">
+            <div class="card card-img-holder text-default bg-color">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="circle-icon bg-success text-center align-self-center shadow-success">
+                            <img src="../assets/images/circle.svg" style="margin-left: 0px;" class="card-img-absolute">
+                            <i class="fas fa-badge-check fs-30  text-white mt-4"></i>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="card-body p-4">
+                            <h2 class="mb-3"><span class="win">{{ numberFormat revenueData.betAll.win }}</span></h2>
+                            <h5 class="font-weight-normal mb-0">Tổng Thắng</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-3 col-md-6">
+            <div class="card card-img-holder text-default">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="card-img-absolute circle-icon bg-gray align-items-center text-center shadow-gray">
+                            <img src="../assets/images/circle.svg" style="margin-left: 0px;" class="card-img-absolute">
+                            <i class="fas fa-window-close fs-30 text-white mt-4"></i>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="card-body p-4">
+                            <h2 class="mb-3"><span class="won">{{ numberFormat revenueData.betAll.won }}</span></h2>
+                            <h5 class="font-weight-normal mb-0">Tổng Thua</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-3 col-md-6">
+            <div class="card card-img-holder text-default">
+                <div class="row">
+                    <div class="col-4">
+                        <div
+                            class="card-img-absolute circle-icon bg-danger align-items-center text-center shadow-danger">
+                            <img src="../assets/images/circle.svg" style="margin-left: 0px;" class="card-img-absolute">
+                            <i class="fas fa-exclamation-triangle fs-30 text-white mt-4"></i>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="card-body p-4">
+                            <h2 class="mb-3"><span class="error">{{ numberFormat revenueData.betAll.error }}</span></h2>
+                            <h5 class="font-weight-normal mb-0">Tổng Lỗi</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-3 col-md-6">
+            <div class="card card-img-holder text-default">
+                <div class="row">
+                    <div class="col-4">
+                        <div
+                            class="card-img-absolute circle-icon bg-warning align-items-center text-center shadow-warning">
+                            <img src="../assets/images/circle.svg" style="margin-left: 0px;" class="card-img-absolute">
+                            <i class="fas fa-undo-alt fs-30 text-white mt-4"></i>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="card-body p-4">
+                            <h2 class="mb-3"><span class="refund">{{ numberFormat revenueData.betAll.refund }}</span>
+                            </h2>
+                            <h5 class="font-weight-normal mb-0">Tổng Hoàn Tiền</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h3 class="text-white text-center">Lịch Sử Hệ Thống
+        <span class="_remove hand" data-id="all"><i class="fas fa-trash fa-sm"></i></span>
+    </h3>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body jumbotron">
+                <div style="overflow: auto; height: 350px;" id="_logSystem">
+                    {{#each logs}}
+                    <div id="{{ this._id }}"><b class="text-danger">* {{ this.typeData }} | <b class="text-info">{{
+                                formatDate this.time
+                                'YYYY-MM-DD HH:mm:ss'}} | </b></b><b class="text-success"> {{ this.content }}</b> <span
+                            class="text-danger hand _remove" data-id="{{ this._id }}"><i
+                                class="fas fa-trash"></i></span>
+                        <hr>
+                    </div>
+                    {{else}}
+                    <div class="text-center">
+                        <svg class="" xml:space="preserve" style="enable-background:new 0 0 512 512" viewBox="0 0 36 36"
+                            y="0" x="0" height="120" width="120" version="1.1" xmlns:svgjs="http://svgjs.com/svgjs"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+                            <g xmlns="http://www.w3.org/2000/svg">
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="m31.833 8.377c0 6.917 3.583 11.667 3.583 15s-1.916 10.333-17.249 10.333-17.584-9.417-17.584-13.083c0-17.167 31.25-24.5 31.25-12.25z"
+                                        fill="#efefef" data-original="#efefef" style=""></path>
+                                </g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="m25.5 5c-.827 0-1.5-.673-1.5-1.5s.673-1.5 1.5-1.5 1.5.673 1.5 1.5-.673 1.5-1.5 1.5zm0-2c-.276 0-.5.225-.5.5s.224.5.5.5.5-.225.5-.5-.224-.5-.5-.5z"
+                                        fill="#a4afc1" data-original="#a4afc1" style=""></path>
+                                </g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                    <path d="m27.25 28.25h-18.5c-1.105 0-2-.895-2-2v-15h22.5v15c0 1.105-.895 2-2 2z"
+                                        fill="#f3f3f1" data-original="#f3f3f1" style=""></path>
+                                </g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                    <path d="m29.25 11.25h-22.5v-1.5c0-1.105.895-2 2-2h18.5c1.105 0 2 .895 2 2z"
+                                        fill="#4a97f7" data-original="#2fdf84" style="" class=""></path>
+                                </g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                    <path d="m9.25 26.25v-15h-2.5v15c0 1.105.895 2 2 2h2.5c-1.105 0-2-.895-2-2z"
+                                        fill="#d5dbe1" data-original="#d5dbe1" style=""></path>
+                                </g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                    <path d="m11 7.75h-2.25c-1.105 0-2 .895-2 2v1.5h2.25v-1.5c0-1.105.895-2 2-2z"
+                                        fill="#4a97f7" data-original="#00b871" style="" class=""></path>
+                                </g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="m18.25 23h-.5c-.965 0-1.75-.785-1.75-1.75v-3.75c0-.692.458-1.5 1.75-1.5h.5c1.292 0 1.75.808 1.75 1.5v3.75c0 .965-.785 1.75-1.75 1.75zm-.5-5.5c-.184 0-.276.033-.296.045l.046 3.705c0 .138.112.25.25.25h.5c.138 0 .25-.112.25-.25v-3.736c-.02.008-.107-.014-.25-.014z"
+                                        fill="#000000" data-original="#000000" style=""></path>
+                                </g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="m14 20h-2.25c-.965 0-1.75-.785-1.75-1.75v-2.25h1.5v2.25c0 .138.112.25.25.25h2.25z"
+                                        fill="#000000" data-original="#000000" style=""></path>
+                                </g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                    <path d="m12.5 16h1.5v7h-1.5z" fill="#000000" data-original="#000000" style="">
+                                    </path>
+                                </g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="m26 20h-2.25c-.965 0-1.75-.785-1.75-1.75v-2.25h1.5v2.25c0 .138.112.25.25.25h2.25z"
+                                        fill="#000000" data-original="#000000" style=""></path>
+                                </g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                    <path d="m24.5 16h1.5v7h-1.5z" fill="#000000" data-original="#000000" style="">
+                                    </path>
+                                </g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="m27.25 29h-18.5c-1.517 0-2.75-1.233-2.75-2.75v-16.5c0-1.517 1.233-2.75 2.75-2.75h18.5c1.517 0 2.75 1.233 2.75 2.75v16.5c0 1.517-1.233 2.75-2.75 2.75zm-18.5-20.5c-.689 0-1.25.561-1.25 1.25v16.5c0 .689.561 1.25 1.25 1.25h18.5c.689 0 1.25-.561 1.25-1.25v-16.5c0-.689-.561-1.25-1.25-1.25z"
+                                        fill="#000000" data-original="#000000" style=""></path>
+                                </g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                    <path d="m6.75 10.5h22.5v1.5h-22.5z" fill="#000000" data-original="#000000"
+                                        style=""></path>
+                                </g>
+                                <g xmlns="http://www.w3.org/2000/svg">
+                                    <path d="m2 27.5h32v1.5h-32z" fill="#000000" data-original="#000000" style="">
+                                    </path>
+                                </g>
+                            </g>
+                        </svg>
+                        <p class="font-weight-bold">Không tìm thấy dữ liệu...</p>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalTime" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thay Đổi Thời Gian</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="get">
+                        <input type="hidden" name="_revenueDay" value="{{ _revenueDay }}">
+                        <input type="hidden" name="_revenueMonth" value="{{ _revenueMonth }}">
+                        <div class="form-group">
+                            <label for="" class="form-label">Chọn ngày</label>
+                            <input type="date" id="_revenueTime" class="form-control">
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-gray" data-dismiss="modal">Đóng</button>
+                    <button class="btn btn-primary">Gửi</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{{> footer }}
+<script type="text/javascript">
+    $(document).ready(function () {
+        const pusher = new Pusher("{{ PUSHER_APP_KEY }}", {
+            cluster: 'ap1'
+        });
+
+        let _revenueType;
+        let channel = pusher.subscribe("appPusher");
+
+        $('.change-time').on('click', function (e) {
+            let id = $(this).data('id');
+            let value = $(`input[name="${id}"]`).val();
+            _revenueType = id;
+
+            $('#_revenueTime').attr('type', _revenueType == '_revenueMonth' ? 'month' : 'date');
+            $('#_revenueTime').val(value);
+            $("#modalTime").modal('show');
+        })
+
+        $('#_revenueTime').on('change', function (e) {
+            let value = $('#_revenueTime').val();
+            $(`input[name="${_revenueType}"]`).val(value)
+        })
+
+        $('#_logSystem').animate({
+            scrollTop: $('#_logSystem')[0].scrollHeight
+        }, 1500);
+
+        $('body').on('click', '._remove', function (e) {
+            let _this = $(this);
+            let id = _this.data('id');
+
+            $.ajax({
+                url: '../adminPanel/logSystem/' + id,
+                method: 'DELETE',
+                dataType: 'json',
+                beforeSend: (data) => {
+                    _this.prop('disabled', true);
+                    _this.html('<i class="fas fa-spinner fa-spin" aria-hidden="true"></i>');
+                },
+                success: (res) => {
+                    _this.prop('disabled', false);
+                    _this.html('<i class="fas fa-trash"></i>');
+
+                    if (!res.success) return Swal.fire('Thông báo', res.message, 'error');
+                    id == 'all' ? $('#_logSystem').html('') : $(`#${id}`).remove();;
+                }
+            })
+        })
+
+        channel.bind('logSystem', (data) => {
+            console.log(data);
+            $('#_logSystem').append(`<div id="${data._id}"><b class="text-danger">* ${data.typeData} | <b class="text-info">${new Date(data.time).toLocaleString()} | </b></b><b class="text-success"> ${data.content}</b> <span class="text-danger hand _remove" data-id="${data._id}"><i class="fas fa-trash"></i></span><hr></div>`);
+            $('#_logSystem').animate({
+                scrollTop: $('#_logSystem')[0].scrollHeight
+            }, 1000);
+        });
+
+    })
+
+    function revenueData() {
+        const params = new URLSearchParams(window.location.search);
+
+        fetch("../adminPanel/revenueData?" + params)
+            .then((response) => response.json())
+            .then((res) => {
+                if (!res.success) {
+                    return Swal.fire('Thông báo', res.message, 'error');
+                }
+
+                let data = res.data;
+                for (var key in data) {
+                    for (let revenue in data[key]) {
+                        $(`div.${key} span.${revenue}`).html(Intl.NumberFormat('en-US').format(data[key][revenue]))
+                    }
+                }
+            })
+            .catch((err) => Swal.fire('Thông báo', `Có lỗi xảy ra, ${err}`, 'error'));
+    }
+</script>

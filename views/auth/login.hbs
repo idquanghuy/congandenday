@@ -1,0 +1,95 @@
+{{> header }}
+<div class="login-img">
+    <div id="global-loader"></div>
+    <div class="page h-100">
+        <div class="page-single">
+            <div class="container">
+                <div class="row authentication">
+                    <div class="col-lg-5 col-xl-4 col-md-6 d-block col-login mx-auto">
+                        <center>
+                            <a class="header-brand" href="#" style="color:#fff;font-weight:bold">
+                                <i class="fab fa-opencart" style="font-size: 20px; color: white;"></i>
+                                {{ settings.nameSite }}</a>
+                        </center>
+                        <div class="card">
+                            <div class="card-body p-6 ">
+                                <div class="card-title text-center">Đăng Nhập</div>
+                                <form action="" method="post">
+                                    <div class="input-icon form-group wrap-input">
+                                        <span class="input-icon-addon search-icon"> <i class="fas fa-user"></i></span>
+                                        <input type="text" name="username" class="form-control" placeholder="Username">
+                                    </div>
+                                    <div class="input-icon form-group wrap-input">
+                                        <span class="input-icon-addon search-icon"> <i class="fas fa-key"></i> </span>
+                                        <input type="password" name="password" class="form-control mb-0"
+                                            placeholder="Password">
+                                        <label class="form-label">
+                                            <a href="#" class="float-right small">Quên mật khẩu ?</a>
+                                        </label>
+                                    </div>
+                                    <div class="form-group mt-5">
+                                        <label class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" checked="true">
+                                            <span class="custom-control-label">Ghi nhớ</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary btn-block">Đăng Nhập</button>
+                                    </div>
+                                </form>
+                                <div class="flex-c-m text-center mt-5">
+                                    <a href="#" class="login100-social-item bg1">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                    <a href="#" class="login100-social-item bg2">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                    <a href="#" class="login100-social-item bg3">
+                                        <i class="fab fa-google-plus-g"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
+<script src="../assets/js/vendors/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/vendors/jquery.sparkline.min.js"></script>
+<script src="../assets/plugins/notify/js/rainbow.js"></script>
+<script src="../assets/plugins/notify/js/jquery.growl.js"></script>
+<script src="../assets/js/jquery.richtext.js"></script>
+<script src="../assets/js/app.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('form').submit(function (e) {
+            e.preventDefault();
+            let data = $('form').serialize();
+
+            $.ajax({
+                url: '',
+                method: 'POST',
+                dataType: 'json',
+                data,
+                beforeSend: () => {
+                    $('form>div>button').prop('disabled', true);
+                    $('form>div>button').html('Đang xử lý <i class="fas fa-spinner text-white fa-spin ml-2" aria-hidden="true"></i>');
+                },
+                success: (res) => {
+                    $('form>div>button').prop('disabled', false);
+                    $('form>div>button').html('Đăng Nhập');
+                    !res.success ? $.growl.error({
+                        title: "<center>Error!</center>",
+                        message: `<center>${res.message}</center>`,
+                    }) : $.growl.notice({
+                        title: "<center>Success!</center>",
+                        message: `<center>${res.message}</center>`,
+                    }) && setTimeout(() => window.location.reload(), 1500);
+                }
+            })
+        })
+    })
+</script>

@@ -1,0 +1,74 @@
+{{> header }}
+{{> navbar }}
+<main class="container">
+    <div class="mainbar"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <img src="../assets/images/photos/transfer.png" alt="" style="width: 30px">
+                        Chuyển Tiền
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <form action="" method="post">
+                        <div class="form-group">
+                            <label for="" class="form-label">Số Điện Thoại</label>
+                            <select name="phone" class="form-control select2">
+                                {{#each phones}}
+                                <option value="{{ this.phone }}">{{ this.phone }} - {{ numberFormat this.money }}đ
+                                </option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-label">Người Nhận</label>
+                            <input type="text" name="receiver" class="form-control"
+                                placeholder="Nhập số điện thoại người nhận">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-label">Số Tiền</label>
+                            <input type="number" name="amount" class="form-control"
+                                placeholder="Nhập số tiền cần chuyển">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-label">Nội Dung</label>
+                            <input type="text" name="comment" class="form-control"
+                                placeholder="Nhập nội dung cần chuyển">
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-primary"><i class="fa fa-exchange" aria-hidden="true"></i> Chuyển
+                                Tiền</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{{> footer }}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('form').submit(function (e) {
+            e.preventDefault();
+            let data = $(this).serialize();
+
+            $.ajax({
+                url: '../adminPanel/transfer',
+                method: 'POST',
+                dataType: 'json',
+                data,
+                beforeSend: () => {
+                    $('form button.btn-primary').prop('disabled', true);
+                    $('form button.btn-primary').html('<i class="fas fa-spinner fa-spin" aria-hidden="true"></i>');
+                },
+                success: (res) => {
+                    $('form button.btn-primary').prop('disabled', false);
+                    $('form button.btn-primary').html('<i class="fa fa-exchange" aria-hidden="true"></i> Chuyển Tiền');
+                    !res.success ? Swal.fire('Thông báo', res.message, 'error') : Swal.fire('Thông báo', res.message, 'success') && setTimeout(() => window.location.reload(), 1500);
+                }
+            })
+        })
+    })
+</script>

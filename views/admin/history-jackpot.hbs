@@ -1,0 +1,355 @@
+{{> header }}
+{{> navbar }}
+
+<main class="container">
+    <div class="mainbar"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <img src="../assets/images/photos/history-jar.png" alt="" style="width: 30px">
+                        Lịch Sử Nổ Hũ
+                    </h3>
+                    <div class="card-options">
+                        <form action="" method="get" id="formPage">
+                            <div class="input-group">
+                                <select name="perPage" class="form-control form-control-sm"
+                                    onchange="$('#formPage').submit();">
+                                    {{#select perPage}}
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="200">200</option>
+                                    <option value="500">500</option>
+                                    <option value="1000">1000</option>
+                                    {{/select}}
+                                </select>
+                                <span class="input-group-btn ml-2">
+                                    <button type="button" class="btn btn-sm btn-danger action-history"
+                                        data-action="remove-all">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                </span>
+                            </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form action="" method="get">
+                        <div class="form-group">
+                            <div class="row gutters-xs">
+                                <div class="col">
+                                    <input type="text" name="search" class="form-control" value="{{ search }}"
+                                        placeholder="Nhập nội dung tìm kiếm....">
+                                </div>
+                                <span class="col-auto">
+                                    <button class="btn btn-primary">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                    <a href="..{{ originalUrl.pathname }}" class="btn btn-light text-danger">
+                                        <i class="fas fa-times-circle"></i>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="table-responsive mb-3">
+                        <table
+                            class="table card-table table-vcenter text-nowrap table-bordered table-striped text-center">
+                            <thead class="badge-primary text-white">
+                                <tr>
+                                    <th class="text-white">Mã Giao Dịch</th>
+                                    <th class="text-white">Người Thắng</th>
+                                    <th class="text-white">Số Tiền</th>
+                                    <th class="text-white">Trạng Thái</th>
+                                    <th class="text-white">Thời Gian</th>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each historys}}
+                                <tr class="edit-one" data-id="{{ this._id }}" data-_id="{{ this.transId }}">
+                                    <td>#{{ this.transId }}</td>
+                                    <td>{{ this.receiver }}</td>
+                                    <td>{{ numberFormat this.amount }}đ</td>
+                                    <td class="status">
+                                        {{#ifCond this.status '==' 'success'}}
+                                        <span class="badge badge-success">Đã Xử Lý</span>
+                                        {{/ifCond}}
+                                        {{#ifCond this.status '==' 'wait'}}
+                                        <span class="badge badge-warning">Đang Xử Lý</span>
+                                        {{/ifCond}}
+                                        {{#ifCond this.status '==' 'error'}}
+                                        <span class="badge badge-danger">Lỗi</span>
+                                        {{/ifCond}}
+                                    </td>
+                                    <td>{{ formatDate this.updatedAt 'YYYY-MM-DD HH:mm:ss' }}</td>
+                                    <td>
+                                        <span class="badge badge-info action-history hand" data-id="{{ this._id }}"
+                                            data-action="edit"><i class="fas fa-pen"></i></span>
+                                        <span class="badge badge-warning action-history hand" data-id="{{ this._id }}"
+                                            data-action="rework"><i class="fas fa-trophy-alt"></i></span>
+                                        <span class="badge badge-danger action-history hand" data-id="{{ this._id }}"
+                                            data-action="remove"><i class="fas fa-trash"></i></span>
+                                    </td>
+                                </tr>
+                                {{else}}
+                                <tr>
+                                    <td colspan="12">
+                                        <div class="text-center">
+                                            <img src="../assets/images/photos/404.png">
+                                            <p class="font-weight-bold">Không tìm thấy dữ liệu...</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mb-3">
+                        <ul class="pagination-container">
+                            {{#paginate pagination type="previous"}}
+                            <li {{#if disabled}}class="page-item page-prev disabled" {{/if}}>
+                                <a class="page-link"
+                                    href="{{ baseURL }}?{{#if query }}{{ query }}&page={{n}}{{else}}page={{n}}{{/if}}">Prev</a>
+                            </li>
+                            {{/paginate}}
+                            {{#paginate pagination type="middle" limit=pagination.limit}}
+                            <li {{#if active}}class="page-item active" {{/if}}>
+                                <a class="page-link"
+                                    href="{{ baseURL }}?{{#if query }}{{ query }}&page={{n}}{{else}}page={{n}}{{/if}}">{{n}}</a>
+                            </li>
+                            {{/paginate}}
+                            {{#paginate pagination type="next"}}
+                            <li {{#if disabled}}class="page-item page-next disabled" {{/if}}>
+                                <a class="page-link"
+                                    href="{{ baseURL }}?{{#if query }}{{ query }}&page={{n}}{{else}}page={{n}}{{/if}}">Next</a>
+                            </li>
+                            {{/paginate}}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="modalRework" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Trả Thưởng Nổ Hũ <b id="transId" class="text-primary">#</b></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="" method="post" id="formRework">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="" class="form-label">Mã Giao Dịch</label>
+                            <input type="text" name="transId" class="form-control" readonly="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-label">Số Điện Thoại</label>
+                            <select name="phone" class="form-control">
+                                {{#each phones}}
+                                <option value="{{ this.phone }}">{{ this.phone }} - {{ numberFormat this.money }}đ
+                                </option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-gray" data-dismiss="modal">Đóng</button>
+                        <button class="btn btn-primary">Thực Hiện</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{{> footer }}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('body').on('click', '.action-history', function (e) {
+            let _this = $(this);
+            let id = _this.data('id');
+            let _id = _this.parent().parent().data('_id');
+            let action = _this.data('action');
+            let value;
+
+            switch (action) {
+                case 'edit':
+                    value = _this.parent().parent().find('td.status').text();
+                    value = value.includes('Đã Xử Lý') ? 'success' : (value.includes('Đang Xử Lý') ? 'wait' : 'error');
+                    _this.parent().parent().find('td.status').html(`<select name="status" data-old="${value}" class="form-control"><option value="wait" ${value == 'wait' && 'selected'}>Đang Xử Lý</option><option value="success" ${value == 'success' && 'selected'}>Đã Xử Lý</option><option value="error" ${value == 'error' && 'selected'}>Lỗi</option></select>`);
+                    _this.parent().html(`<span class="badge badge-danger hand action-history hand" data-action="cancel-edit" data-id="${id}"><i class="fas fa-times"></i></span> <span class="badge badge-success hand action-history hand" data-action="save-edit" data-id="${id}"><i class="fas fa-save"></i></span>`);
+                    break;
+                case 'save-edit':
+                    value = _this.parent().parent().find('[name="status"]');
+
+                    if (value.val() != value.data('old')) {
+                        $.ajax({
+                            url: '../adminPanel/history-jackpot/' + id,
+                            method: 'PUT',
+                            dataType: 'json',
+                            data: {
+                                status: value.val()
+                            },
+                            beforeSend: () => {
+                                _this.prop('disabled', true);
+                                _this.html('<i class="fas fa-spinner fa-spin" aria-hidden="true"></i>');
+                            },
+                            success: (res) => {
+                                _this.prop('disabled', false);
+                                _this.html('<i class="fas fa-save"></i>');
+
+                                if (!res.success) return Swal.fire('Thông báo', res.message, 'error');
+                            }
+                        })
+                    }
+
+                    value = value.val();
+                    _this.parent().parent().find('td.status').html(value == 'success' ? '<span class="badge badge-success">Đã Xử Lý</span>' : (value == 'wait' ? '<span class="badge badge-warning">Đang Xử Lý</span>' : '<span class="badge badge-danger">Lỗi</span>'));
+                    _this.parent().html(`<span class="badge badge-info action-history hand" data-id="${id}" data-action="edit"><i class="fas fa-pen"></i></span> <span class="badge badge-warning action-history hand" data-id="${_id}" data-action="rework"><i class="fas fa-trophy-alt"></i></span> <span class="badge badge-danger action-history hand" data-id="${id}" data-action="remove"><i class="fas fa-trash"></i></span>`);
+                    break;
+                case 'cancel-edit':
+                    value = _this.parent().parent().find('[name="status"]').data('old');
+
+                    _this.parent().parent().find('td.status').html(value == 'success' ? '<span class="badge badge-success">Đã Xử Lý</span>' : (value == 'wait' ? '<span class="badge badge-warning">Đang Xử Lý</span>' : '<span class="badge badge-danger">Lỗi</span>'));
+                    _this.parent().html(`<span class="badge badge-info action-history hand" data-id="${id}" data-action="edit"><i class="fas fa-pen"></i></span> <span class="badge badge-warning action-history hand" data-id="${_id}" data-action="rework"><i class="fas fa-trophy-alt"></i></span> <span class="badge badge-danger action-history hand" data-id="${id}" data-action="remove"><i class="fas fa-trash"></i></span>`);
+                    break;
+                case 'rework':
+                    $('#transId').html(`#${_id}`);
+                    $('[name="transId"]').val(_id);
+                    $('#modalRework').modal('show');
+                    break;
+                case 'remove':
+                    Swal.fire({
+                        title: 'Bạn chắc chắn ?',
+                        text: "Bạn muốn xóa #" + id,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#868e96',
+                        confirmButtonText: 'Xóa',
+                        cancelButtonText: 'Hủy'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: '../adminPanel/history-jackpot/' + id,
+                                method: 'DELETE',
+                                dataType: 'json',
+                                beforeSend: () => {
+                                    _this.prop('disabled', true);
+                                    _this.html('<i class="fas fa-spinner fa-spin" aria-hidden="true"></i>');
+                                },
+                                success: (res) => {
+                                    _this.prop('disabled', false);
+                                    _this.html('<i class="fas fa-trash"></i>');
+                                    !res.success ? Swal.fire('Thông báo', res.message, 'error') : Swal.fire('Thông báo', res.message, 'success') && _this.parent().parent().remove();
+                                }
+                            })
+                        }
+                    })
+                    break;
+                case 'remove-all':
+                    Swal.fire({
+                        title: 'Bạn chắc chắn ?',
+                        text: "Bạn muốn xóa tất cả ?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#868e96',
+                        confirmButtonText: 'Xóa',
+                        cancelButtonText: 'Hủy'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: '../adminPanel/history-jackpot/all',
+                                method: 'DELETE',
+                                dataType: 'json',
+                                beforeSend: () => {
+                                    _this.prop('disabled', true);
+                                    _this.html('<i class="fas fa-spinner fa-spin" aria-hidden="true"></i>');
+                                },
+                                success: (res) => {
+                                    _this.prop('disabled', false);
+                                    _this.html('<i class="fas fa-trash"></i>');
+                                    !res.success ? Swal.fire('Thông báo', res.message, 'error') : Swal.fire('Thông báo', res.message, 'success') && setTimeout(() => window.location.reload(), 1500);
+                                }
+                            })
+                        }
+                    })
+                    break;
+                default:
+                    Swal.fire('Thông báo', 'Thao tác không hợp lệ', 'warning');
+                    break;
+            }
+        })
+
+        $('body').on('dblclick', 'tr.edit-one>td.status', function (e) {
+            let _this = $(this);
+            let value = _this.text();
+            value = value.includes('Đã Xử Lý') ? 'success' : (value.includes('Đang Xử Lý') ? 'wait' : 'error');
+
+            if (_this.html().includes('name="saveEdit"')) return;
+
+            _this.html(`<select name="saveEdit" data-old="${value}" class="form-control mb-3"><option value="wait" ${value == 'wait' && 'selected'}>Đang Xử Lý</option><option value="success" ${value == 'success' && 'selected'}>Đã Xử Lý</option><option value="error" ${value == 'error' && 'selected'}>Lỗi</option></select> <span class="badge badge-danger hand action-one" data-action="cancel-one"><i class="fas fa-times"></i></span>  <span class="badge badge-success hand action-one" data-action="save-one"><i class="fas fa-save"></i></span>`);
+        })
+
+        $('body').on('click', '.action-one', function (e) {
+            let _this = $(this);
+            let action = _this.data('action');
+            let value = _this.parent().find('[name="saveEdit"]');
+
+            if (action == 'save-one' && value.val() != value.data('old')) {
+                let id = _this.parent().parent().data('id');
+                $.ajax({
+                    url: '../adminPanel/history-jackpot/' + id,
+                    method: 'PUT',
+                    dataType: 'json',
+                    data: {
+                        status: value.val()
+                    },
+                    beforeSend: () => {
+                        _this.prop('disabled', true);
+                        _this.html('<i class="fas fa-spinner fa-spin" aria-hidden="true"></i>');
+                    },
+                    success: (res) => {
+                        _this.prop('disabled', false);
+                        _this.html('<i class="fas fa-save"></i>');
+
+                        if (!res.success) return Swal.fire('Thông báo', res.message, 'error');
+                    }
+                })
+            }
+
+            value = action == 'save-one' ? value.val() : value.data('old');
+            _this.parent().html(value == 'success' ? '<span class="badge badge-success">Đã Xử Lý</span>' : (value == 'wait' ? '<span class="badge badge-warning">Đang Xử Lý</span>' : '<span class="badge badge-danger">Lỗi</span>'));
+        })
+
+        $('#formRework').submit(function (e) {
+            e.preventDefault();
+            let data = $(this).serialize();
+
+            $.ajax({
+                url: '../adminPanel/history-jackpot',
+                method: 'POST',
+                dataType: 'json',
+                data,
+                beforeSend: () => {
+                    $('#formRework button.btn-primary').prop('disabled', true);
+                    $('#formRework button.btn-primary').html('<i class="fas fa-spinner fa-spin" aria-hidden="true"></i>');
+                },
+                success: (res) => {
+                    $('#formRework button.btn-primary').prop('disabled', false);
+                    $('#formRework button.btn-primary').html('Thêm');
+                    !res.success ? Swal.fire('Thông báo', res.message, 'error') : Swal.fire('Thông báo', res.message, 'success') && setTimeout(() => window.location.reload(), 1500);
+                }
+            })
+        })
+    })
+</script>

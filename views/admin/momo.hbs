@@ -1,0 +1,730 @@
+{{> header }}
+{{> navbar }}
+<style>
+    @media (min-width: 1280px) {
+        .container {
+            max-width: 1350px !important;
+        }
+    }
+</style>
+<main class="container">
+    <div class="mainbar"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title"><img src="../assets/images/photos/manage-account.png" alt=""
+                            style="width: 30px">
+                        Quản Lý Tài Khoản </h3>
+                    <div class="card-options">
+                        <form action="" id="formPage" method="get">
+                            <div class="input-group">
+                                <select name="perPage" class="form-control form-control-sm"
+                                    onchange="$('#formPage').submit();">
+                                    {{#select perPage}}
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="200">200</option>
+                                    <option value="500">500</option>
+                                    <option value="1000">1000</option>
+                                    {{/select}}
+                                </select>
+                                <span class="input-group-btn ml-2">
+                                    <button type="button" class="btn btn-sm btn-primary action-momo" data-action="add">
+                                        <i class="fas fa-plus-circle"></i>
+                                    </button>
+                                </span>
+                            </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <span class="badge badge-primary p-3">Tổng: {{ numberFormat count }}đ</span>
+                    </div>
+                    <div class="form-group">
+                        <div class="row gutters-xs">
+                            <div class="col">
+                                <input type="text" name="search" class="form-control" value="{{ search }}"
+                                    placeholder="Nhập nội dung tìm kiếm....">
+                            </div>
+                            <span class="col-auto">
+                                <button class="btn btn-primary">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                                <a href="..{{ originalUrl.pathname }}" class="btn btn-light text-danger">
+                                    <i class="fas fa-times-circle"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                    </form>
+                    <div class="table-responsive table-mousewheel mb-3">
+                        <table
+                            class="table card-table table-vcenter text-nowrap table-bordered table-striped text-center">
+                            <thead class="badge-primary text-white">
+                                <tr>
+                                    <th></th>
+                                    <th class="text-white">Số Điện Thoại</th>
+                                    <th class="text-white">Tên Tài Khoản</th>
+                                    <th class="text-white">Số Dư</th>
+                                    <th class="text-white">Số Lần</th>
+                                    <th class="text-white">Tỉ Lệ</th>
+                                    <th class="text-white">Cược Min</th>
+                                    <th class="text-white">Cược Max</th>
+                                    <th class="text-white">Giới Hạn Ngày</th>
+                                    <th class="text-white">Giới Hạn Tháng</th>
+                                    <th class="text-white">Trạng Thái</th>
+                                    <th class="text-white">Đăng Nhập</th>
+                                    <th class="text-white">Mô Tả</th>
+                                    <th class="text-white">Chuyển Ngày</th>
+                                    <th class="text-white">Nhận Ngày</th>
+                                    <th class="text-white">Chuyển Tháng</th>
+                                    <th class="text-white">Nhận Tháng</th>
+                                    <th class="text-white">Thời Gian</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each list}}
+                                <tr class="edit-one" data-id="{{ this._id }}">
+                                    <td>
+                                        <span class="badge badge-info hand action-momo" data-action="edit"
+                                            data-id="{{ this._id }}"><i class="fas fa-pen"></i></span>
+                                        <span class="badge badge-warning hand action-momo" data-action="update-money"
+                                            data-id="{{ this._id }}" data-toggle="tooltip" data-placement="top" title=""
+                                            data-original-title="Cập nhập số dư"><i class="fas fa-coins"></i></span>
+                                        <span class="badge badge-success hand action-momo" data-action="update-token"
+                                            data-id="{{ this._id }}" data-toggle="tooltip" data-placement="top" title=""
+                                            data-original-title="Cập nhập lại token"><i
+                                                class="fa fa-rotate-right"></i></span>
+                                        <a target="_blank" href="../adminPanel/dashboard?_phone={{ this.phone }}"
+                                            class="badge badge-info" data-toggle="tooltip" data-placement="top" title=""
+                                            data-original-title="Xem thống kê"><i class="fas fa-eye"></i></a>
+                                        <span class="badge badge-danger hand action-momo" data-action="remove"
+                                            data-id="{{ this._id }}"><i class="fas fa-trash"></i></span>
+                                    </td>
+                                    <td>{{ this.phone }}</td>
+                                    <td>{{ this.name }}</td>
+                                    <td class="money">{{ numberFormat this.money }}đ</td>
+                                    <td class="count">{{ numberFormat this.count }}</td>
+                                    <td class="bonus"><strong><span style="color: red;">x</span> {{ this.bonus
+                                            }}</strong></td>
+                                    <td class="betMin">{{ numberFormat this.betMin }}đ</td>
+                                    <td class="betMax">{{ numberFormat this.betMax }}đ</td>
+                                    <td class="limitDay">{{ numberFormat this.limitDay }}đ</td>
+                                    <td class="limitMonth">{{ numberFormat this.limitMonth }}đ</td>
+                                    <td class="status">{{{ momoStatus this.status }}}</td>
+                                    <td class="loginStatus">{{{ loginStatus this.loginStatus }}}</td>
+                                    <td><textarea class="form-control">{{ this.description }}</textarea></td>
+                                    <td>{{ numberFormat this.amountDay }}đ</td>
+                                    <td>{{ numberFormat this.receiptDay }}đ</td>
+                                    <td>{{ numberFormat this.amountMonth }}đ</td>
+                                    <td>{{ numberFormat this.receiptMonth }}đ</td>
+                                    <td>{{ formatDate this.updatedAt 'YYYY-MM-DD HH:mm:ss' }}</td>
+                                </tr>
+                                {{else}}
+                                <tr>
+                                    <td colspan="24">
+                                        <div class="text-center">
+                                            <img src="../assets/images/photos/404.png">
+                                            <p class="font-weight-bold">Không tìm thấy dữ liệu...</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mb-3">
+                        <ul class="pagination-container">
+                            {{#paginate pagination type="previous"}}
+                            <li {{#if disabled}}class="page-item page-prev disabled" {{/if}}>
+                                <a class="page-link"
+                                    href="{{ baseURL }}?{{#if query }}{{ query }}&page={{n}}{{else}}page={{n}}{{/if}}">Prev</a>
+                            </li>
+                            {{/paginate}}
+                            {{#paginate pagination type="middle" limit=pagination.limit}}
+                            <li {{#if active}}class="page-item active" {{/if}}>
+                                <a class="page-link"
+                                    href="{{ baseURL }}?{{#if query }}{{ query }}&page={{n}}{{else}}page={{n}}{{/if}}">{{n}}</a>
+                            </li>
+                            {{/paginate}}
+                            {{#paginate pagination type="next"}}
+                            <li {{#if disabled}}class="page-item page-next disabled" {{/if}}>
+                                <a class="page-link"
+                                    href="{{ baseURL }}?{{#if query }}{{ query }}&page={{n}}{{else}}page={{n}}{{/if}}">Next</a>
+                            </li>
+                            {{/paginate}}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="addMomo" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thêm Tài Khoản</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="formMomo" method="POST">
+                        <div class="form-group">
+                            <label for="" class="form-label">Số Điện Thoại</label>
+                            <input type="text" name="phone" class="form-control" placeholder="Nhập số điện thoại">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-label">Mật Khẩu</label>
+                            <input type="text" name="password" class="form-control" placeholder="Nhập mật khẩu">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-label">OTP</label>
+                            <input type="text" name="otp" class="form-control" placeholder="Nhập mã otp">
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-gray" data-dismiss="modal">Đóng</button>
+                    <button class="btn btn-primary" data-action="otp">Thêm</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{{> footer }}
+<script type="text/javascript">
+    $(document).ready(function () {
+        let isSelect = (options, value) => options.split('\n').map((v) => !RegExp(`value="${value}"`).test(v) ? v : v.replace(`value="${value}"`, `value="${value}"` + ' selected')).join('\n');
+
+        $('body').on('click', '.action-momo', function (e) {
+            let _this = $(this);
+            let id = _this.data('id');
+            let action = _this.data('action');
+            switch (action) {
+                case 'add':
+                    $('#addMomo').modal('show');
+                    break;
+                case 'edit':
+                    _this.parent().parent().find('td').each(function (e) {
+                        let className = $(this).attr('class');
+                        let value = $(this).text();
+                        if (!className) return;
+
+                        switch (className) {
+                            case 'count':
+                                $(this).html(`<input type="number" data-old="${value.replace(/[^\d]/g, '')}" name="count" class="form-control" value="${value.replace(/[^\d]/g, '')}">`);
+                                break;
+                            case 'bonus':
+                                $(this).html(`<input type="text" data-old="${value.replace(/^\D+/g, '')}" name="bonus" class="form-control" value="${value.replace(/^\D+/g, '')}">`);
+                                break;
+                            case 'betMin':
+                                $(this).html(`<input type="number" data-old="${value.replace(/[^\d]/g, '')}" name="betMin" class="form-control" value="${value.replace(/[^\d]/g, '')}">`);
+                                break;
+                            case 'betMax':
+                                $(this).html(`<input type="number" data-old="${value.replace(/[^\d]/g, '')}" name="betMax" class="form-control" value="${value.replace(/[^\d]/g, '')}">`);
+                                break;
+                            case 'limitDay':
+                                $(this).html(`<input type="number" data-old="${value.replace(/[^\d]/g, '')}" name="limitDay" class="form-control" value="${value.replace(/[^\d]/g, '')}">`);
+                                break;
+                            case 'limitMonth':
+                                $(this).html(`<input type="number" data-old="${value.replace(/[^\d]/g, '')}" name="limitMonth" class="form-control" value="${value.replace(/[^\d]/g, '')}">`);
+                                break;
+                            case 'status':
+                                switch (value) {
+                                    case 'Hoạt Động':
+                                        value = 'active';
+                                        break;
+                                    case 'Giới Hạn':
+                                        value = 'limit';
+                                        break;
+                                    case 'Tạm Dừng':
+                                        value = 'pending';
+                                        break;
+                                    default:
+                                        value = 'error';
+                                        break;
+                                }
+
+                                $(this).html(`<select name="status" data-old="${value}" class="form-control">${isSelect(`<option value="active">Hoạt Động</option><option value="limit">Giới Hạn</option><option value="pending">Tạm Dừng</option><option value="error">Lỗi Số</option>`, value)}</select>`);
+                                break;
+                            case 'loginStatus':
+                                switch (value) {
+                                    case 'Lỗi Refresh':
+                                        value = 'refreshError';
+                                        break;
+                                    case 'Đợi Đăng Nhập':
+                                        value = 'waitLogin';
+                                        break;
+                                    case 'Lỗi Đăng Nhập':
+                                        value = 'errorLogin';
+                                        break;
+                                    case 'Hoạt Động':
+                                        value = 'active';
+                                        break;
+                                    case 'Đợi OTP':
+                                        value = 'waitOTP';
+                                        break;
+                                    case 'Đợi Gửi OTP':
+                                        value = 'waitSend';
+                                        break;
+                                    default:
+                                        value = 'error';
+                                        break;
+                                }
+
+                                $(this).html(`<select name="loginStatus" data-old="${value}" class="form-control">${isSelect(`<option value="refreshError">Lỗi Refresh</option><option value="waitLogin">Đợi Đăng Nhập</option><option value="errorLogin">Lỗi Đăng Nhập</option><option value="active">Hoạt Động</option><option value="waitOTP">Đợi OTP</option><option value="waitSend">Đợi Gửi OTP</option><option value="error">Lỗi</option>`, value)}</select>`);
+                                break;
+                        }
+
+                    })
+
+                    _this.parent().html(`<span class="badge badge-danger hand action-momo" data-action="cancel-edit" data-id="${id}"><i class="fas fa-times"></i></span> <span class="badge badge-success hand action-momo" data-action="save-edit" data-id="${id}"><i class="fas fa-save"></i></span>`);
+
+                    break;
+                case 'cancel-edit':
+                    _this.parent().parent().find('td').each(function (e) {
+                        let className = $(this).attr('class');
+                        let value = $(this).find(`[name="${className}"]`).data('old');
+                        if (!className) return;
+
+                        switch (className) {
+                            case 'count':
+                                $(this).html(`${Intl.NumberFormat('en-US').format(value)}`);
+                                break;
+                            case 'bonus':
+                                $(this).html(`<strong><span style="color: red;">x</span> ${value}</strong>`);
+                                break;
+                            case 'betMin':
+                                $(this).html(`${Intl.NumberFormat('en-US').format(value)}đ`);
+                                break;
+                            case 'betMax':
+                                $(this).html(`${Intl.NumberFormat('en-US').format(value)}đ`);
+                                break;
+                            case 'limitDay':
+                                $(this).html(`${Intl.NumberFormat('en-US').format(value)}đ`);
+                                break;
+                            case 'limitMonth':
+                                $(this).html(`${Intl.NumberFormat('en-US').format(value)}đ`);
+                                break;
+                            case 'status':
+                                switch (value) {
+                                    case 'active':
+                                        value = `<span class="badge badge-success">Hoạt Động</span>`;
+                                        break;
+                                    case 'limit':
+                                        value = `<span class="badge badge-info">Giới Hạn</span>`;
+                                        break;
+                                    case 'pending':
+                                        value = `<span class="badge badge-warning">Tạm Dừng</span>`;
+                                        break;
+                                    case 'error':
+                                        value = `<span class="badge badge-danger">Lỗi Số</span>`;
+                                        break;
+                                }
+                                $(this).html(value);
+                                break;
+                            case 'loginStatus':
+                                switch (value) {
+                                    case 'refreshError':
+                                        value = `<span class="badge badge-danger">Lỗi Refresh</span>`;
+                                        break;
+                                    case 'waitLogin':
+                                        value = `<span class="badge badge-warning">Đợi Đăng Nhập</span>`;
+                                        break;
+                                    case 'errorLogin':
+                                        value = `<span class="badge badge-danger">Lỗi Đăng Nhập</span>`;
+                                        break;
+                                    case 'active':
+                                        value = `<span class="badge badge-success">Hoạt Động</span>`;
+                                        break;
+                                    case 'waitOTP':
+                                        value = `<span class="badge badge-warning">Đợi OTP</span>`;
+                                        break;
+                                    case 'waitSend':
+                                        value = `<span class="badge badge-warning">Đợi Gửi OTP</span>`;
+                                        break;
+                                    default:
+                                        value = `<span class="badge badge-danger">Lỗi</span>`;
+                                        break;
+                                }
+                                $(this).html(value);
+                                break;
+                        }
+                    })
+
+                    _this.parent().html(`<span class="badge badge-info hand action-momo" data-action="edit" data-id="${id}"><i class="fas fa-pen"></i></span> <span class="badge badge-warning hand action-momo" data-action="update-money" data-id="${id}"><i class="fas fa-coins"></i></span> <span class="badge badge-success hand action-momo" data-action="update-token" data-id="${id}"><i class="fa fa-rotate-right"></i></span> <span class="badge badge-danger hand action-momo" data-action="remove" data-id="${id}"><i class="fas fa-trash"></i></span>`);
+
+                    break;
+                case 'save-edit':
+                    let data = {};
+                    _this.parent().parent().find('td').each(function (e) {
+                        let className = $(this).attr('class');
+                        let value = $(this).find(`[name="${className}"]`);
+                        if (!className) return;
+
+                        if (value.val() != value.data('old')) {
+                            data[className] = value.val();
+                        }
+
+                        value = value.val();
+
+                        switch (className) {
+                            case 'count':
+                                $(this).html(`${Intl.NumberFormat('en-US').format(value)}`);
+                                break;
+                            case 'bonus':
+                                $(this).html(`<strong><span style="color: red;">x</span> ${value}</strong>`);
+                                break;
+                            case 'betMin':
+                                $(this).html(`${Intl.NumberFormat('en-US').format(value)}đ`);
+                                break;
+                            case 'betMax':
+                                $(this).html(`${Intl.NumberFormat('en-US').format(value)}đ`);
+                                break;
+                            case 'limitDay':
+                                $(this).html(`${Intl.NumberFormat('en-US').format(value)}đ`);
+                                break;
+                            case 'limitMonth':
+                                $(this).html(`${Intl.NumberFormat('en-US').format(value)}đ`);
+                                break;
+                            case 'status':
+                                switch (value) {
+                                    case 'active':
+                                        value = `<span class="badge badge-success">Hoạt Động</span>`;
+                                        break;
+                                    case 'limit':
+                                        value = `<span class="badge badge-info">Giới Hạn</span>`;
+                                        break;
+                                    case 'pending':
+                                        value = `<span class="badge badge-warning">Tạm Dừng</span>`;
+                                        break;
+                                    case 'error':
+                                        value = `<span class="badge badge-danger">Lỗi Số</span>`;
+                                        break;
+                                }
+                                $(this).html(value);
+                                break;
+                            case 'loginStatus':
+                                switch (value) {
+                                    case 'refreshError':
+                                        value = `<span class="badge badge-danger">Lỗi Refresh</span>`;
+                                        break;
+                                    case 'waitLogin':
+                                        value = `<span class="badge badge-warning">Đợi Đăng Nhập</span>`;
+                                        break;
+                                    case 'errorLogin':
+                                        value = `<span class="badge badge-danger">Lỗi Đăng Nhập</span>`;
+                                        break;
+                                    case 'active':
+                                        value = `<span class="badge badge-success">Hoạt Động</span>`;
+                                        break;
+                                    case 'waitOTP':
+                                        value = `<span class="badge badge-warning">Đợi OTP</span>`;
+                                        break;
+                                    case 'waitSend':
+                                        value = `<span class="badge badge-warning">Đợi Gửi OTP</span>`;
+                                        break;
+                                    default:
+                                        value = `<span class="badge badge-danger">Lỗi</span>`;
+                                        break;
+                                }
+                                $(this).html(value);
+                                break;
+                        }
+                    })
+
+                    _this.parent().html(`<span class="badge badge-info hand action-momo" data-action="edit" data-id="${id}"><i class="fas fa-pen"></i></span> <span class="badge badge-warning hand action-momo" data-action="update-money" data-id="${id}"><i class="fas fa-coins"></i></span> <span class="badge badge-success hand action-momo" data-action="update-token" data-id="${id}"><i class="fa fa-rotate-right"></i></span> <span class="badge badge-danger hand action-momo" data-action="remove" data-id="${id}"><i class="fas fa-trash"></i></span>`);
+
+                    if (data && Object.keys(data).length) {
+                        $.ajax({
+                            url: '../adminPanel/momo/' + id,
+                            method: 'PUT',
+                            dataType: 'json',
+                            data,
+                            beforeSend: () => {
+                                _this.prop('disabled', true);
+                                _this.html('<i class="fas fa-spinner fa-spin" aria-hidden="true"></i>');
+                            },
+                            success: (res) => {
+                                _this.prop('disabled', false);
+                                _this.html('<i class="fas fa-save"></i>');
+                                !res.success && Swal.fire('Thông báo', res.message, 'error');
+                            }
+                        })
+                    }
+
+                    break;
+                case 'remove':
+                    Swal.fire({
+                        title: 'Bạn chắc chắn ?',
+                        text: "Bạn muốn xóa #" + id,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#868e96',
+                        confirmButtonText: 'Xóa',
+                        cancelButtonText: 'Hủy'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: '../adminPanel/momo/' + id,
+                                method: 'DELETE',
+                                dataType: 'json',
+                                beforeSend: () => {
+                                    _this.prop('disabled', true);
+                                    _this.html('<i class="fas fa-spinner fa-spin" aria-hidden="true"></i>');
+                                },
+                                success: (res) => {
+                                    _this.prop('disabled', false);
+                                    _this.html('<i class="fas fa-trash"></i>');
+                                    !res.success ? Swal.fire('Thông báo', res.message, 'error') : Swal.fire('Thông báo', res.message, 'success') && _this.parent().parent().remove();
+                                }
+                            })
+                        }
+                    })
+                    break;
+                case 'update-money':
+                    $.ajax({
+                        url: '../adminPanel/momo/money/' + id,
+                        method: 'PUT',
+                        beforeSend: () => {
+                            _this.prop('disabled', true);
+                            _this.html('<i class="fas fa-spinner fa-spin" aria-hidden="true"></i>');
+                        },
+                        success: (res) => {
+                            _this.prop('disabled', false);
+                            _this.html('<i class="fas fa-coins"></i>');
+                            !res.success ? Swal.fire('Thông báo', res.message, 'error') : Swal.fire('Thông báo', res.message, 'success') && _this.parent().parent().find('td.money').html(`${Intl.NumberFormat('en-US').format(res.balance)}đ`);
+                        }
+                    })
+                    break;
+                case 'update-token':
+                    $.ajax({
+                        url: '../adminPanel/momo/token/' + id,
+                        method: 'PUT',
+                        beforeSend: () => {
+                            _this.prop('disabled', true);
+                            _this.html('<i class="fas fa-spinner fa-spin" aria-hidden="true"></i>');
+                        },
+                        success: (res) => {
+                            _this.prop('disabled', false);
+                            _this.html('<i class="fa fa-rotate-right"></i>');
+                            !res.success ? Swal.fire('Thông báo', res.message, 'error') && setTimeout(() => window.location.reload(), 1300) : Swal.fire('Thông báo', res.message, 'success');
+                        }
+                    })
+                    break;
+                default:
+                    Swal.fire('Thông báo', 'Thao tác không hợp lệ!', 'warning');
+                    break;
+            }
+        })
+
+        $('body').on('dblclick', 'tr.edit-one>td', function (e) {
+            let _this = $(this);
+            let className = _this.attr('class');
+            let value = _this.text();
+
+            if (_this.html().includes('name="saveEdit"')) return;
+
+            switch (className) {
+                case 'count':
+                    $(this).html(`<input type="number" data-old="${value.replace(/[^\d]/g, '')}" name="saveEdit" class="form-control mb-3" value="${value.replace(/[^\d]/g, '')}"> <span class="badge badge-danger hand action-one" data-action="cancel-one"><i class="fas fa-times"></i></span>  <span class="badge badge-success hand action-one" data-action="save-one"><i class="fas fa-save"></i></span>`);
+                    break;
+                case 'bonus':
+                    $(this).html(`<input type="text" data-old="${value.replace(/^\D+/g, '')}" name="saveEdit" class="form-control mb-3" value="${value.replace(/^\D+/g, '')}"> <span class="badge badge-danger hand action-one" data-action="cancel-one"><i class="fas fa-times"></i></span>  <span class="badge badge-success hand action-one" data-action="save-one"><i class="fas fa-save"></i></span>`);
+                    break;
+                case 'betMin':
+                    $(this).html(`<input type="number" data-old="${value.replace(/[^\d]/g, '')}" name="saveEdit" class="form-control mb-3" value="${value.replace(/[^\d]/g, '')}"> <span class="badge badge-danger hand action-one" data-action="cancel-one"><i class="fas fa-times"></i></span>  <span class="badge badge-success hand action-one" data-action="save-one"><i class="fas fa-save"></i></span>`);
+                    break;
+                case 'betMax':
+                    $(this).html(`<input type="number" data-old="${value.replace(/[^\d]/g, '')}" name="saveEdit" class="form-control mb-3" value="${value.replace(/[^\d]/g, '')}"> <span class="badge badge-danger hand action-one" data-action="cancel-one"><i class="fas fa-times"></i></span>  <span class="badge badge-success hand action-one" data-action="save-one"><i class="fas fa-save"></i></span>`);
+                    break;
+                case 'limitDay':
+                    $(this).html(`<input type="number" data-old="${value.replace(/[^\d]/g, '')}" name="saveEdit" class="form-control mb-3" value="${value.replace(/[^\d]/g, '')}"> <span class="badge badge-danger hand action-one" data-action="cancel-one"><i class="fas fa-times"></i></span>  <span class="badge badge-success hand action-one" data-action="save-one"><i class="fas fa-save"></i></span>`);
+                    break;
+                case 'limitMonth':
+                    $(this).html(`<input type="number" data-old="${value.replace(/[^\d]/g, '')}" name="saveEdit" class="form-control mb-3" value="${value.replace(/[^\d]/g, '')}"> <span class="badge badge-danger hand action-one" data-action="cancel-one"><i class="fas fa-times"></i></span>  <span class="badge badge-success hand action-one" data-action="save-one"><i class="fas fa-save"></i></span>`);
+                    break;
+                case 'status':
+                    switch (value) {
+                        case 'Hoạt Động':
+                            value = 'active';
+                            break;
+                        case 'Giới Hạn':
+                            value = 'limit';
+                            break;
+                        case 'Tạm Dừng':
+                            value = 'pending';
+                            break;
+                        default:
+                            value = 'error';
+                            break;
+                    }
+
+                    $(this).html(`<select name="saveEdit" data-old="${value}" class="form-control mb-3">${isSelect(`<option value="active">Hoạt Động</option><option value="limit">Giới Hạn</option><option value="pending">Tạm Dừng</option><option value="error">Lỗi Số</option>`, value)}</select> <span class="badge badge-danger hand action-one" data-action="cancel-one"><i class="fas fa-times"></i></span>  <span class="badge badge-success hand action-one" data-action="save-one"><i class="fas fa-save"></i></span>`);
+                    break;
+                case 'loginStatus':
+                    switch (value) {
+                        case 'Lỗi Refresh':
+                            value = 'refreshError';
+                            break;
+                        case 'Đợi Đăng Nhập':
+                            value = 'waitLogin';
+                            break;
+                        case 'Lỗi Đăng Nhập':
+                            value = 'errorLogin';
+                            break;
+                        case 'Hoạt Động':
+                            value = 'active';
+                            break;
+                        case 'Đợi OTP':
+                            value = 'waitOTP';
+                            break;
+                        case 'Đợi Gửi OTP':
+                            value = 'waitSend';
+                            break;
+                        default:
+                            value = 'error';
+                            break;
+                    }
+
+                    $(this).html(`<select name="saveEdit" data-old="${value}" class="form-control mb-3">${isSelect(`<option value="refreshError">Lỗi Refresh</option><option value="waitLogin">Đợi Đăng Nhập</option><option value="errorLogin">Lỗi Đăng Nhập</option><option value="active">Hoạt Động</option><option value="waitOTP">Đợi OTP</option><option value="waitSend">Đợi Gửi OTP</option><option value="error">Lỗi</option>`, value)}</select> <span class="badge badge-danger hand action-one" data-action="cancel-one"><i class="fas fa-times"></i></span>  <span class="badge badge-success hand action-one" data-action="save-one"><i class="fas fa-save"></i></span>`);
+                    break;
+            }
+        })
+
+        $('body').on('click', '.action-one', function (e) {
+            let _this = $(this);
+            let action = _this.data('action');
+            let className = _this.parent().attr('class');
+            let value = _this.parent().find('[name="saveEdit"]');
+
+            if (action == 'save-one' && value.val() != value.data('old')) {
+                let id = _this.parent().parent().data('id');
+                $.ajax({
+                    url: '../adminPanel/momo/' + id,
+                    method: 'PUT',
+                    dataType: 'json',
+                    data: {
+                        [className]: value.val()
+                    },
+                    beforeSend: () => {
+                        _this.prop('disabled', true);
+                        _this.html('<i class="fas fa-spinner fa-spin" aria-hidden="true"></i>');
+                    },
+                    success: (res) => {
+                        _this.prop('disabled', false);
+                        _this.html('<i class="fas fa-save"></i>');
+
+                        if (!res.success) return Swal.fire('Thông báo', res.message, 'error');
+                    }
+                })
+            }
+
+            value = action == 'save-one' ? value.val() : value.data('old');
+
+            switch (className) {
+                case 'count':
+                    $(this).parent().html(`${Intl.NumberFormat('en-US').format(value)}`);
+                    break;
+                case 'bonus':
+                    $(this).parent().html(`<strong><span style="color: red;">x</span> ${value}</strong>`);
+                    break;
+                case 'betMin':
+                    $(this).parent().html(`${Intl.NumberFormat('en-US').format(value)}đ`);
+                    break;
+                case 'betMax':
+                    $(this).parent().html(`${Intl.NumberFormat('en-US').format(value)}đ`);
+                    break;
+                case 'limitDay':
+                    $(this).parent().html(`${Intl.NumberFormat('en-US').format(value)}đ`);
+                    break;
+                case 'limitMonth':
+                    $(this).parent().html(`${Intl.NumberFormat('en-US').format(value)}đ`);
+                    break;
+                case 'status':
+                    switch (value) {
+                        case 'active':
+                            value = `<span class="badge badge-success">Hoạt Động</span>`;
+                            break;
+                        case 'limit':
+                            value = `<span class="badge badge-info">Giới Hạn</span>`;
+                            break;
+                        case 'pending':
+                            value = `<span class="badge badge-warning">Tạm Dừng</span>`;
+                            break;
+                        case 'error':
+                            value = `<span class="badge badge-danger">Lỗi Số</span>`;
+                            break;
+                    }
+                    $(this).parent().html(value);
+                    break;
+                case 'loginStatus':
+                    switch (value) {
+                        case 'refreshError':
+                            value = `<span class="badge badge-danger">Lỗi Refresh</span>`;
+                            break;
+                        case 'waitLogin':
+                            value = `<span class="badge badge-warning">Đợi Đăng Nhập</span>`;
+                            break;
+                        case 'errorLogin':
+                            value = `<span class="badge badge-danger">Lỗi Đăng Nhập</span>`;
+                            break;
+                        case 'active':
+                            value = `<span class="badge badge-success">Hoạt Động</span>`;
+                            break;
+                        case 'waitOTP':
+                            value = `<span class="badge badge-warning">Đợi OTP</span>`;
+                            break;
+                        case 'waitSend':
+                            value = `<span class="badge badge-warning">Đợi Gửi OTP</span>`;
+                            break;
+                        default:
+                            value = `<span class="badge badge-danger">Lỗi</span>`;
+                            break;
+                    }
+                    $(this).parent().html(value);
+                    break;
+            }
+        })
+
+        $('body').on('submit', '#formMomo', function (e) {
+            e.preventDefault();
+            let data = $(this).serialize();
+            let action = $('#addMomo button.btn-primary').attr('data-action');
+
+            $.ajax({
+                url: '../api/v1/momo/' + action,
+                method: 'POST',
+                dataType: 'json',
+                data,
+                beforeSend: () => {
+                    $('#addMomo button.btn-primary').prop('disabled', true);
+                    $('#addMomo button.btn-primary').html('<i class="fas fa-spinner fa-spin" aria-hidden="true"></i>');
+                },
+                success: (res) => {
+                    $('#addMomo button.btn-primary').prop('disabled', false);
+                    $('#addMomo button.btn-primary').html(action == 'otp' ? (res.success ? 'Xác Nhận' : 'Thêm') : (action == 'confirm' ? (res.success ? 'Đăng Nhập' : 'Xác Nhận') : 'Thêm'));
+
+                    switch (action) {
+                        case 'otp':
+                            !res.success ? Swal.fire('Thông báo', res.message, 'error') : Swal.fire('Thông báo', res.message, 'success') && $('#addMomo button.btn-primary').attr('data-action', 'confirm');
+                            break;
+                        case 'confirm':
+                            !res.success ? Swal.fire('Thông báo', res.message, 'error') : Swal.fire('Thông báo', res.message, 'success') && $('#addMomo button.btn-primary').attr('data-action', 'login');
+                            break;
+                        case 'login':
+                            !res.success ? Swal.fire('Thông báo', res.message, 'error') : Swal.fire('Thông báo', res.message, 'success') && setTimeout(() => window.location.reload(), 1500);
+                            break;
+                    }
+                }
+            })
+        })
+
+    })
+</script>

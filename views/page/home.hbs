@@ -1,0 +1,634 @@
+{{> header }}
+<style>
+    .admin-navbar .nav-link {
+        padding: 0.60rem 2.3rem !important;
+    }
+</style>
+<div id="global-loader"></div>
+<div class="page">
+    <div class="page-main">
+        <div class="header">
+            <div class="container">
+                <div class="d-flex">
+                    <a href="#" class="header-toggler d-lg-none ml-3 ml-lg-0" data-toggle="collapse"
+                        data-target="#headerMenuCollapse">
+                        <span class="header-toggler-icon"></span>
+                    </a>
+                    <a class="header-brand" href="/" style="color:#fff;font-weight:bold">
+                        <i class="fab fa-opencart" style="font-size: 25px;"></i> {{ settings.nameSite }}</a>
+                </div>
+            </div>
+        </div>
+        <div class="admin-navbar sticky" id="headerMenuCollapse">
+            <div class="container">
+                <ul class="nav">
+                    <li class="nav-item with-sub">
+                        <a class="nav-link" href="../">
+                            <i class="fas fa-home"></i>
+                            <span>Trang Chủ</span>
+                        </a>
+                    </li>
+                    <li class="nav-item with-sub">
+                        <a class="nav-link scroll-to" href="#how_to_play"><i class="fa fa-gamepad"></i>
+                            <span>Cách Chơi</span>
+                        </a>
+                    </li>
+                    <li class="nav-item with-sub">
+                        <a class="nav-link scroll-to" href="#history_win"><i class="fa fa-history"></i>
+                            <span>Lịch Sử Thắng</span>
+                        </a>
+                    </li>
+                    <li class="nav-item with-sub">
+                        <a class="nav-link scroll-to" href="#check_transaction"><i class="fa fa-search"></i>
+                            <span>Kiểm Tra Giao Dịch</span>
+                        </a>
+                    </li>
+                    <li class="nav-item with-sub">
+                        <a class="nav-link scroll-to" href="#mission_day"><i class="fa fa-tasks"></i>
+                            <span>Nhiệm Vụ Ngày</span>
+                        </a>
+                    </li>
+                    <li class="nav-item with-sub">
+                        <a class="nav-link scroll-to" href="#top_tuan"><i class="fa fa-trophy"></i>
+                            <span>TOP Tuần</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <main class="container">
+            <div class="mainbar"></div>
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <div class="content text-center">
+                        <h2>Hệ Thống Mini Game Chẳn Lẻ Momo</h2>
+                        <div class="row justify-content-center mb-3" id="list-game">
+                            {{#each games}}
+                            <div style="padding: 5px">
+                                <button
+                                    class="btn btn-{{#ifCond @index '==' 0}}primary{{else}}outline-primary{{/ifCond}} games"
+                                    data-name="{{ this.name }}" data-description="{{ this.description }}"
+                                    data-type="{{ this.gameType }}"><b>{{ this.name }}</b></button>
+                            </div>
+                            {{/each}}
+                        </div>
+                        <div class="row justify-content-center">
+                            <div style="padding: 5px">
+                                <button class="btn btn-outline-danger" data-toggle="modal"
+                                    data-target="#modalMuster"><b><i class="fas fa-user-crown"></i> Điểm
+                                        Danh</b></button>
+                            </div>
+                            <div style="padding: 5px">
+                                <a class="btn btn-outline-danger scroll-to" href="#mission_day"><b><i
+                                            class="fas fa-tasks"></i> Nhiệm Vụ Ngày</b></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <sections id="how_to_play">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="content h-100">
+                            <h3 id="gameName">Cách Chơi</h3>
+                            <div class="alert alert-warning" role="alert">
+                                <b>Chú ý 🔞:</b> Mini game chỉ dành cho người <b>trên 18 tuổi</b>.
+                            </div>
+                            <p>Chuyển tiền vào 1 trong các tài khoản MOMO sau:</p>
+                            <div class="table-responsive mb-3">
+                                <table
+                                    class="table card-table table-vcenter text-nowrap table-bordered table-striped text-center">
+                                    <thead class="badge-primary text-white">
+                                        <tr>
+                                            <th class="text-white">Số điện thoại</th>
+                                            <th class="text-white">Tối thiểu</th>
+                                            <th class="text-white">Tối đa</th>
+                                            <th class="text-white">Trạng thái</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tablePhone"></tbody>
+                                </table>
+                            </div>
+                            <p id="gameNoti"></p>
+                            <div class="table-responsive mb-3">
+                                <table
+                                    class="table card-table table-vcenter text-nowrap table-bordered table-striped text-center">
+                                    <thead class="badge-primary text-white">
+                                        <tr>
+                                            <th class="text-white">Nội dung</th>
+                                            <th class="text-white">Kết quả</th>
+                                            <th class="text-white">Tỉ lệ</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tableReward"></tbody>
+                                </table>
+                            </div>
+                            <div class="text-center mb-3">
+                                <div class="d-inline-flex align-items-center justify-content-center">
+                                    <h5 class="mx-2 my-0"><span class="badge badge-success">Tiền thưởng</span></h5>
+                                    <b>=</b>
+                                    <h5 class="mx-2 my-0"><span class="badge badge-secondary">Tiền đặt</span></h5>
+                                    <b>x</b>
+                                    <h5 class="mx-2 my-0"><span class="badge badge-secondary">Tỉ lệ</span></h5>
+                                </div>
+                            </div>
+                            <div class="alert alert-success" role="alert">
+                                <p>Chỉ chuyển vào số tài khoản đang hiện trên web và có tình trạng là
+                                    <span class="badge badge-success">Hoạt động</span>.
+                                    Không chuyển vào số dùng để trả thưởng.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="content h-100">
+                            <h3>Lưu ý</h3>
+                            {{{ settings.gameNote }}}
+                            <div class="table-responsive mb-3">
+                                <table
+                                    class="table card-table table-vcenter text-nowrap table-bordered table-striped text-center">
+                                    <thead class="badge-primary text-white">
+                                        <tr>
+                                            <th class="text-white">Số điện thoại</th>
+                                            <th class="text-white">Tên tài khoản</th>
+                                            <th class="text-white">Hạn mức</th>
+                                            <th class="text-white">Số lần</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tableThongKe"></tbody>
+                                </table>
+                            </div>
+                            <div class="alert alert-warning" role="alert">
+                                <p>Sau thời gian 1 - 2 phút nếu bạn vẫn chưa nhận được tiền thưởng, vui lòng nhắn
+                                    tin hỗ trợ, chúng tôi sẽ xử lý gấp cho bạn. Hoặc bạn có thể kiểm tra trạng thái
+                                    Mã giao dịch.</p>
+                            </div>
+                            <div class="text-center mb-3">
+                                <a href="https://zalo.me/g/ueixwl919" class="badge badge-primary p-2"><i
+                                        class="fa fa-users" aria-hidden="true"></i>
+                                    Group Zalo</a>
+                                <a href="https://t.me/AzsaoVin" class="badge badge-info p-2"><i class="fa fa-users"
+                                        aria-hidden="true"></i> Group Telegram</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </sections>
+            <sections id="history_win">
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <div class="content">
+                            <h3 class="text-center card-title">
+                                <img src="../assets/images/photos/history.png" style="width: 30px"> <b>Lịch Sử
+                                    Thắng</b>
+                            </h3>
+                            <div class="table-responsive">
+                                <table
+                                    class="table card-table table-vcenter text-nowrap table-bordered table-striped text-center">
+                                    <thead class="badge-primary text-white">
+                                        <tr>
+                                            <th class="text-white">Thời gian</th>
+                                            <th class="text-white">Số điện thoại</th>
+                                            <th class="text-white">Tiền cược</th>
+                                            <th class="text-white">Tiền thưởng</th>
+                                            <th class="text-white">Trò chơi</th>
+                                            <th class="text-white">Nội dung</th>
+                                            <th class="text-white">Kết quả</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tableHistory">
+                                        <tr>
+                                            <td colspan="12">
+                                                <div class="text-center"><img src="../assets/images/photos/404.png">
+                                                    <p class="font-weight-bold">Không tìm thấy dữ liệu...</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </sections>
+            <sections id="mission_day">
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <div class="content">
+                            <h3 class="text-center card-title">
+                                <img src="../assets/images/photos/mission.png" style="width: 30px">
+                                <b>Nhiệm Vụ Ngày</b>
+                                <img src="../assets/images/photos/mission.png" style="width: 30px">
+                            </h3>
+                            <div class="alert alert-warning">
+                                - Thật tuyệt vời ! Mỗi ngày chỉ cần chơi mini game trên hệ thống chắc chắn bạn sẽ
+                                nhận được
+                                tiền.<br>
+                                - Khi chơi đủ số tiền ( không cần biết thắng thua ) chắc chắn sẽ nhận được tiền.
+                                <br>
+                                - Hãy nhập số điện thoại của bạn vào mục bên trên để kiểm tra đã chơi bao nhiêu nhé.
+                                <br>
+                                - Khi chơi đủ mốc tiền, hệ thống sẽ tự động chuyển tiền thưởng vào tài khoản của các
+                                bạn vào cuối ngày. <br>
+                                - Các mốc thưởng tương ứng như sau:
+                            </div>
+                            <div id="checkMission">
+                                <center>
+                                    <div class="money-day badge badge-primary mb-3 d-none">0 VNĐ</div>
+                                </center>
+                                <div class="form-group">
+                                    <div class="row gutters-xs">
+                                        <div class="col">
+                                            <input type="number" name="phoneCheck" class="form-control"
+                                                placeholder="Nhập số điện thoại cần kiểm tra...">
+                                        </div>
+                                        <span class="col-auto">
+                                            <button class="btn btn-primary">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive mb-3">
+                                <table
+                                    class="table card-table table-vcenter text-nowrap table-bordered table-striped text-center">
+                                    <thead class="badge-primary text-white">
+                                        <tr>
+                                            <th class="text-white">Mốc chơi</th>
+                                            <th class="text-white">Thưởng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each settings.missionData.data}}
+                                        <tr>
+                                            <td>{{numberFormat this.amount }}</td>
+                                            <td><span class="text-success">+ {{numberFormat this.bonus }}</span>
+                                            </td>
+                                        </tr>
+                                        {{else}}
+                                        <tr>
+                                            <td colspan="12">
+                                                <div class="text-center"><img src="../assets/images/photos/404.png">
+                                                    <p class="font-weight-bold">Không tìm thấy dữ liệu...</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </sections>
+            <sections id="check_transaction">
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <div class="content">
+                            <h3 class="text-center card-title">
+                                <img src="../assets/images/photos/search.png" style="width: 30px"> <b>Kiểm Tra Mã
+                                    Giao Dịch</b>
+                            </h3>
+                            <p class="text-center">Nếu quá 3 phút chưa nhận được tiền vui lòng dán mã vào đây kiểm
+                                tra</p>
+                            <div id="checkByTrans">
+                                <div class="form-group">
+                                    <div class="row gutters-xs">
+                                        <div class="col">
+                                            <input type="number" name="transId" class="form-control"
+                                                placeholder="Nhập mã giao dịch...">
+                                        </div>
+                                        <span class="col-auto">
+                                            <button class="btn btn-primary">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="checkByPhone" class="d-none">
+                                <div class="row justify-content-center mb-3">
+                                    <div class="col-md-5">
+                                        <input type="number" class="form-control" name="transId"
+                                            placeholder="Nhập mã giao dịch...">
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center mb-3">
+                                    <div class="col-md-5">
+                                        <input type="number" class="form-control" name="phoneCheck"
+                                            placeholder="Số điện thoại bạn chuyển tiền vào...">
+                                    </div>
+                                </div>
+                                <div class="text-center mb-3">
+                                    <button class="btn btn-primary"><i class="fas fa-search"></i> Kiểm tra</button>
+                                </div>
+                            </div>
+                            <div class="alert alert-warning text-center">
+                                {{#if refund}}
+                                Nếu bạn chuyển sai hạn mức tối thiểu và tối đa của trò chơi hệ thống sẽ hoàn tiền
+                                cược tự động {{ settings.refund.win }}% nếu thắng và {{ settings.refund.won }}% nếu
+                                thua.<br>
+                                (Tối đa {{ settings.refund.limit }} lần mỗi ngày)
+                                {{else}}
+                                Nếu bạn chuyển sai hạn mức tối thiểu và tối đa của trò chơi hoặc sai nội dung, hệ
+                                thống không hỗ trợ hoàn tiền!
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </sections>
+            <sections id="top_tuan">
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <div class="content">
+                            <h3 class="text-center card-title">
+                                <img src="../assets/images/photos/cup.png" style="width: 30px">
+                                <b>Đua Top Đại Gia Ngày</b>
+                                <img src="../assets/images/photos/cup.png" style="width: 30px">
+                            </h3>
+                            <div class="table-responsive mb-3">
+                                <table
+                                    class="table card-table table-vcenter text-nowrap table-bordered table-striped text-center">
+                                    <thead class="badge-primary text-white">
+                                        <tr>
+                                            <th class="text-white">#</th>
+                                            <th class="text-white">Số điện thoại</th>
+                                            <th class="text-white">Tiền thắng</th>
+                                            <th class="text-white">Phần thưởng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each tops}}
+                                        <tr>
+                                            <td><b>{{sum @index 1}}</b></td>
+                                            <td>{{ this.phone }}</td>
+                                            <td>{{ numberFormat this.amount }}</td>
+                                            <td><span class="text-success">+ {{ numberFormat this.bonus }}</span></td>
+                                        </tr>
+                                        {{else}}
+                                        <tr>
+                                            <td colspan="12">
+                                                <div class="text-center"><img src="../assets/images/photos/404.png">
+                                                    <p class="font-weight-bold">Không tìm thấy dữ liệu...</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="alert alert-secondary text-center">
+                                Đua TOP bắt đầu từ 0h00 và chốt lúc 23h59 cùng ngày.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </sections>
+            <div class="mainbar"></div>
+        </main>
+    </div>
+</div>
+<!-- Modal DiemDanh -->
+<div class="modal fade" id="modalMuster" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Điểm Danh Nhận Quà Miễn Phí</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Số điện thoại</label>
+                    <div class="row gutters-xs">
+                        <div class="col">
+                            <input type="number" name="phoneMuster" class="form-control"
+                                placeholder="Nhập số điện thoại cần điểm danh..">
+                        </div>
+                        <span class="col-auto">
+                            <button class="btn btn-outline-danger" id="btnMuster" data-toggle="tooltip"
+                                data-placement="top" title="" data-original-title="Điểm danh">
+                                <i class="fas fa-user-crown"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <div class="table-responsive mb-3">
+                    <table class="table card-table table-vcenter text-nowrap table-bordered table-striped text-center">
+                        <thead class="badge-primary text-white">
+                            <tr>
+                                <th class="text-center text-white" colspan="2">Điểm Danh</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Mã phiên</b></td>
+                                <td><b class="text-info" id="muster-session">#524141</b></td>
+                            </tr>
+                            <tr>
+                                <td><b>Thưởng</b></td>
+                                <td><span class="text-danger">{{ numberFormat settings.muster.min }}đ - {{ numberFormat
+                                        settings.muster.max }}đ</span></td>
+                            </tr>
+                            <tr>
+                                <td><b>Tổng</b></td>
+                                <td><span class="text-warning"><b id="muster-count">0</b> người</span></td>
+                            </tr>
+                            <tr>
+                                <td><b>Thắng phiên trước</b></td>
+                                <td id="muster-winner">0926***653</td>
+                            </tr>
+                            <tr>
+                                <td><b>Tổng thưởng</b></td>
+                                <td><span class="text-info" id="muster-bonus">0đ</span></td>
+                            </tr>
+                            <tr>
+                                <td><b>Thời gian</b></td>
+                                <td><span class="text-primary"><b id="muster-time">0</b> giây</span></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-responsive mb-3">
+                    <table class="table card-table table-vcenter text-nowrap table-bordered table-striped text-center">
+                        <thead class="badge-primary text-white">
+                            <tr>
+                                <th class="text-center text-white">Mã Phiên</th>
+                                <th class="text-center text-white">Tổng</th>
+                                <th class="text-center text-white">Số điện thoại</th>
+                                <th class="text-center text-white">Số tiền nhận</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyMuster"></tbody>
+                    </table>
+                </div>
+                <div class="alert alert-warning" role="alert">{{{ settings.muster.noti }}}</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{> footer }}
+
+<script src="../assets/js/love.js"></script>
+<script src="../assets/js/main.js"></script>
+
+{{#if jackpot}}
+<div class="jackpot">
+    <div class="jackpot-content">
+        <a href="#" data-toggle="modal" data-target="#modalJackpot">
+            <img src="../assets/images/photos/jackpot.png" alt="">
+            <div class="jackpot-value {{#ifCond settings.jackpotCount '<' 10000}}d-none{{/ifCond}}"><span>{{
+                    numberFormat settings.jackpotCount }}</span>đ</div>
+        </a>
+    </div>
+</div>
+<!-- Modal Jackpot -->
+<div class="modal fade" id="modalJackpot" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">JACKPOT</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <h6><strong>Bước 1:</strong> Đăng ký tham gia</h6>
+                    <div class="form-jackpot mb-2">
+                        <div class="message"></div>
+                        <div class="form-group">
+                            <label class="form-label">Số điện thoại</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" name="phone"
+                                    placeholder="Nhập số điện thoại...">
+                                <div class="input-group-append"></div>
+                            </div>
+                            <div class="mt-2 d-none jackpot-time"
+                                style="border: 2px dashed rgb(195, 230, 203); padding: 10px; border-radius: 5px;">
+                                Thời gian đăng ký nổ hũ: <strong></strong>
+                            </div>
+                        </div>
+                        <p> Để tham gia chức năng này, bạn cần nhập số điện thoại của bạn chơi vào mục bên trên, sau
+                            đó ấn nút <strong class="text-danger">Tham gia</strong>, (Để hủy thì làm lại tương tự).
+                        </p>
+                    </div>
+                    <h6><strong>Bước 2:</strong> Hình thức trả thưởng</h6>
+                    <p>- Khi tham gia, mỗi khi bạn chiến thắng sẽ bị trừ
+                        <strong class="text-danger"><span>{{numberFormat settings.jackpot.amount }}đ</span></strong> cho
+                        vào Quỹ Hũ.
+                    </p>
+                    <p>- Nếu bạn có đuôi số mã giao dịch là: <br>
+                        <span class="jackpot-numbers">
+                            {{#each settings.jackpot.numberTLS}}
+                            <strong class="text-danger">{{ this }}</strong>
+                            {{/each}}
+                        </span> thì bạn sẽ nhận được toàn bộ số tiền trong hũ
+                    </p>
+                    <p>- Nếu bạn nổ hũ, vui lòng chờ hệ thống sẽ tự động thanh toán vào tài khoản của bạn.</p>
+                </div>
+                <div class="table-responsive">
+                    <table class="table card-table table-vcenter text-nowrap table-bordered table-striped text-center">
+                        <thead class="badge-primary text-white">
+                            <tr>
+                                <th class="text-center text-white">Thời gian</th>
+                                <th class="text-center text-white">Số điện thoại</th>
+                                <th class="text-center text-white">Số tiền nhận</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyJackpot"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        historyJackpot();
+    })
+</script>
+{{/if}}
+{{#if notification}}
+<!-- Modal Notification -->
+<div class="modal fade" id="modalNoti" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thông báo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{{ settings.notification.data }}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-block btn-read" data-dismiss="modal">Đã đọc</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        let isRead = localStorage.getItem('isRead');
+
+        if (isRead) {
+            let now = Date.now();
+
+            if (now >= isRead) {
+                localStorage.clear('isRead');
+                isRead = null;
+            }
+        }
+
+        if (!isRead) {
+            $('#modalNoti').modal('show')
+        }
+
+        $('.btn-read').click(function (e) {
+            let now = Date.now();
+            localStorage.setItem('isRead', now + 3600 * 1000)
+        })
+    })
+</script>
+{{/if}}
+
+<!-- Modal Transaction -->
+<div class="modal fade" id="modalDetail" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Chi tiết giao dịch <b id="detailTransId" class="text-primary">#27628912804</b>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table card-table table-vcenter text-nowrap table-bordered table-striped text-center">
+                        <thead class="badge-primary text-white">
+                            <th class="text-center text-white" colspan="2">Thông tin giao dịch</th>
+                        </thead>
+                        <tbody id="tableDetails"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-refund d-none">Hoàn tiền</button>
+                <button type="button" class="btn btn-gray" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>

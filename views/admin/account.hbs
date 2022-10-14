@@ -1,0 +1,341 @@
+{{> header }}
+{{> navbar }}
+<main class="container">
+    <div class="mainbar"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title"><img src="../assets/images/photos/list-account.png" alt=""
+                            style="width: 30px">
+                        Danh Sách Tài Khoản </h3>
+                    <div class="card-options">
+                        <form action="" method="get" id="formPage">
+                            <div class="input-group">
+                                <select name="perPage" class="form-control form-control-sm"
+                                    onchange="$('#formPage').submit();">
+                                    {{#select perPage}}
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="200">200</option>
+                                    <option value="500">500</option>
+                                    <option value="1000">1000</option>
+                                    {{/select}}
+                                </select>
+                                <span class="input-group-btn ml-2">
+                                    <button type="button" class="btn btn-sm btn-primary action-user" data-action="add">
+                                        <i class="fas fa-plus-circle"></i>
+                                    </button>
+                                </span>
+                            </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <div class="row gutters-xs">
+                            <div class="col">
+                                <input type="text" name="search" class="form-control" value="{{ search }}"
+                                    placeholder="Nhập nội dung tìm kiếm....">
+                            </div>
+                            <span class="col-auto">
+                                <button class="btn btn-primary">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                                <a href="..{{ originalUrl.pathname }}" class="btn btn-light text-danger">
+                                    <i class="fas fa-times-circle"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                    </form>
+                    <div class="table-responsive table-mousewheel mb-3">
+                        <table
+                            class="table card-table table-vcenter text-nowrap table-bordered table-striped text-center">
+                            <thead class="badge-primary text-white">
+                                <tr>
+                                    <th class="text-white">Họ Và Tên</th>
+                                    <th class="text-white">Tên Đăng Nhập</th>
+                                    <th class="text-white">TOKEN</th>
+                                    <th class="text-white">IP</th>
+                                    <th class="text-white">Đăng Nhập Cuối</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each users}}
+                                <tr class="edit-one" data-id="{{ this._id }}">
+                                    <td class="name">{{ this.name }}</td>
+                                    <td class="user">{{ this.username }}</td>
+                                    <td><span class="badge badge-info">{{ this.token }}</span></td>
+                                    <td>{{ this.ip }}</td>
+                                    <td>{{ formatDate this.updatedAt 'YYYY-MM-DD HH:mm:ss' }}</td>
+                                    <td><span class="badge badge-info hand action-user" data-action="edit"
+                                            data-id="{{ this._id }}"><i class="fas fa-pen"></i></span>
+                                        <span class="badge badge-danger hand action-user" data-action="remove"
+                                            data-id="{{ this._id }}"><i class="fas fa-trash"></i></span>
+                                    </td>
+                                </tr>
+                                {{else}}
+                                <tr>
+                                    <td colspan="12">
+                                        <div class="text-center">
+                                            <img src="../assets/images/photos/404.png">
+                                            <p class="font-weight-bold">Không tìm thấy dữ liệu...</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mb-3">
+                        <ul class="pagination-container">
+                            {{#paginate pagination type="previous"}}
+                            <li {{#if disabled}}class="page-item page-prev disabled" {{/if}}>
+                                <a class="page-link"
+                                    href="{{ baseURL }}?{{#if query }}{{ query }}&page={{n}}{{else}}page={{n}}{{/if}}">Prev</a>
+                            </li>
+                            {{/paginate}}
+                            {{#paginate pagination type="middle" limit=pagination.limit}}
+                            <li {{#if active}}class="page-item active" {{/if}}>
+                                <a class="page-link"
+                                    href="{{ baseURL }}?{{#if query }}{{ query }}&page={{n}}{{else}}page={{n}}{{/if}}">{{n}}</a>
+                            </li>
+                            {{/paginate}}
+                            {{#paginate pagination type="next"}}
+                            <li {{#if disabled}}class="page-item page-next disabled" {{/if}}>
+                                <a class="page-link"
+                                    href="{{ baseURL }}?{{#if query }}{{ query }}&page={{n}}{{else}}page={{n}}{{/if}}">Next</a>
+                            </li>
+                            {{/paginate}}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thêm Tài Khoản</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="formUser" method="POST">
+                        <div class="form-group">
+                            <label for="" class="form-label">Họ Và Tên</label>
+                            <input type="text" name="name" class="form-control" placeholder="Nhập họ và tên">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-label">Tên Đăng Nhập</label>
+                            <input type="text" name="username" class="form-control" placeholder="Nhập tên đăng nhập">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-label">Mật Khẩu</label>
+                            <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu">
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-gray" data-dismiss="modal">Đóng</button>
+                    <button class="btn btn-primary">Thêm</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{{> footer }}
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('body').on('click', '.action-user', function (e) {
+            let _this = $(this);
+            let id = _this.data('id');
+            let action = _this.data('action');
+            switch (action) {
+                case 'add':
+                    $('#addUser').modal('show');
+                    break;
+                case 'edit':
+                    _this.parent().parent().find('td').each(function (e) {
+                        let className = $(this).attr('class');
+                        let value = $(this).text();
+                        if (!className) return;
+
+                        switch (className) {
+                            case 'name':
+                                $(this).html(`<input type="text" name="name" data-old="${value}" value="${value}" class="form-control">`);
+                                break;
+                            case 'user':
+                                $(this).html(`<input type="text" name="user" data-old="${value}" value="${value}" class="form-control">`);
+                                break;
+                        }
+
+                    })
+
+                    _this.parent().html(`<span class="badge badge-danger hand action-user" data-action="cancel-edit" data-id="${id}"><i class="fas fa-times"></i></span> <span class="badge badge-success hand action-user" data-action="save-edit" data-id="${id}"><i class="fas fa-save"></i></span>`);
+
+                    break;
+                case 'cancel-edit':
+                    _this.parent().parent().find('td').each(function (e) {
+                        let className = $(this).attr('class');
+                        let value = $(this).find(`[name="${className}"]`).data('old');
+                        console.log(className, value)
+                        if (!className) return;
+
+                        $(this).html(value);
+                    })
+
+                    _this.parent().html(`<span class="badge badge-info hand action-user" data-action="edit" data-id="${id}"><i class="fas fa-pen"></i></span> <span class="badge badge-danger hand action-user" data-action="remove" data-id="${id}"><i class="fas fa-trash"></i></span>`);
+
+                    break;
+                case 'save-edit':
+                    let data = {};
+                    _this.parent().parent().find('td').each(function (e) {
+                        let className = $(this).attr('class');
+                        let value = $(this).find(`[name="${className}"]`);
+                        if (!className) return;
+
+                        if (value.val() != value.data('old')) {
+                            data[className == 'user' ? 'username' : className] = value.val();
+                        }
+
+                        value = value.val();
+                        $(this).html(value);
+
+                    })
+
+                    _this.parent().html(`<span class="badge badge-info hand action-user" data-action="edit" data-id="${id}"><i class="fas fa-pen"></i></span> <span class="badge badge-danger hand action-user" data-action="remove" data-id="${id}"><i class="fas fa-trash"></i></span>`);
+
+                    if (data && Object.keys(data).length) {
+                        $.ajax({
+                            url: '../adminPanel/list-account/' + id,
+                            method: 'PUT',
+                            dataType: 'json',
+                            data,
+                            beforeSend: () => {
+                                _this.prop('disabled', true);
+                                _this.html('<i class="fas fa-spinner fa-spin" aria-hidden="true"></i>');
+                            },
+                            success: (res) => {
+                                _this.prop('disabled', false);
+                                _this.html('<i class="fas fa-save"></i>');
+                                !res.success && Swal.fire('Thông báo', res.message, 'error');
+                            }
+                        })
+                    }
+
+                    break;
+                case 'remove':
+                    Swal.fire({
+                        title: 'Bạn chắc chắn ?',
+                        text: "Bạn muốn xóa #" + id,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#868e96',
+                        confirmButtonText: 'Xóa',
+                        cancelButtonText: 'Hủy'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: '../adminPanel/list-account/' + id,
+                                method: 'DELETE',
+                                dataType: 'json',
+                                beforeSend: () => {
+                                    _this.prop('disabled', true);
+                                    _this.html('<i class="fas fa-spinner fa-spin" aria-hidden="true"></i>');
+                                },
+                                success: (res) => {
+                                    _this.prop('disabled', false);
+                                    _this.html('<i class="fas fa-trash"></i>');
+                                    !res.success ? Swal.fire('Thông báo', res.message, 'error') : Swal.fire('Thông báo', res.message, 'success') && _this.parent().parent().remove();
+                                }
+                            })
+                        }
+                    })
+                    break;
+                default:
+                    Swal.fire('Thông báo', 'Thao tác không hợp lệ!', 'warning');
+                    break;
+            }
+        })
+
+        $('body').on('dblclick', 'tr.edit-one>td', function (e) {
+            let _this = $(this);
+            let className = _this.attr('class');
+            let value = _this.text();
+
+            if (_this.html().includes('name="saveEdit"')) return;
+
+            switch (className) {
+                case 'name':
+                    _this.html(`<input type="text" name="saveEdit" data-old="${value}" value="${value}" class="form-control mb-3"> <span class="badge badge-danger hand action-one" data-action="cancel-one"><i class="fas fa-times"></i></span>  <span class="badge badge-success hand action-one" data-action="save-one"><i class="fas fa-save"></i></span>`);
+                    break;
+                case 'user':
+                    _this.html(`<input type="text" name="saveEdit" data-old="${value}" value="${value}" class="form-control mb-3"> <span class="badge badge-danger hand action-one" data-action="cancel-one"><i class="fas fa-times"></i></span>  <span class="badge badge-success hand action-one" data-action="save-one"><i class="fas fa-save"></i></span>`);
+                    break;
+            }
+        })
+
+        $('body').on('click', '.action-one', function (e) {
+            let _this = $(this);
+            let action = _this.data('action');
+            let className = _this.parent().attr('class');
+            let value = _this.parent().find('[name="saveEdit"]');
+
+            if (action == 'save-one' && value.val() != value.data('old')) {
+                let id = _this.parent().parent().data('id');
+                $.ajax({
+                    url: '../adminPanel/list-account/' + id,
+                    method: 'PUT',
+                    dataType: 'json',
+                    data: {
+                        [className == 'user' ? 'username' : className]: value.val()
+                    },
+                    beforeSend: () => {
+                        _this.prop('disabled', true);
+                        _this.html('<i class="fas fa-spinner fa-spin" aria-hidden="true"></i>');
+                    },
+                    success: (res) => {
+                        _this.prop('disabled', false);
+                        _this.html('<i class="fas fa-save"></i>');
+
+                        if (!res.success) return Swal.fire('Thông báo', res.message, 'error');
+                    }
+                })
+            }
+
+            value = action == 'save-one' ? value.val() : value.data('old');
+
+            $(this).parent().html(value);
+        })
+
+        $('body').on('submit', '#formUser', function (e) {
+            e.preventDefault();
+            let data = $(this).serialize();
+
+            $.ajax({
+                url: '../adminPanel/list-account',
+                method: 'POST',
+                dataType: 'json',
+                data,
+                beforeSend: () => {
+                    $('#addUser button.btn-primary').prop('disabled', true);
+                    $('#addUser button.btn-primary').html('<i class="fas fa-spinner fa-spin" aria-hidden="true"></i>');
+                },
+                success: (res) => {
+                    $('#addUser button.btn-primary').prop('disabled', false);
+                    $('#addUser button.btn-primary').html('Thêm');
+                    !res.success ? Swal.fire('Thông báo', res.message, 'error') : Swal.fire('Thông báo', res.message, 'success') && setTimeout(() => window.location.reload(), 1500);
+                }
+            })
+        })
+    })
+</script>

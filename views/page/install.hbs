@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name="robots" content="noindex, nofollow" />
+    <title>INSTALL SYSTEM</title>
+    <link rel="shortcut icon" href="../assets/images/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="../assets/css/app.css">
+    <link href="../assets/plugins/notify/css/jquery.growl.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/richtext.css">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+    <div id="global-loader"></div>
+    <div class="page" style="background: url(../assets/images/bg-01.jpg);">
+        <div class="page h-100">
+            <div class="container">
+                <div class="row">
+                    {{#if games}}
+                    <div class="col-lg-5 col-xl-4 col-md-6 d-block col-login mx-auto authentication" id="checkTOKEN">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="text-center mb-4">
+                                    <span class="avatar avatar-xxl brround"
+                                        style="background-image: url('../assets/images/avatar.jpg')"></span>
+                                </div>
+                                <span class="m-4 d-none d-lg-block text-center">
+                                    <span class="text-dark"><strong>TOKEN SETUP</strong></span>
+                                </span>
+                                <div class="input-icon form-group">
+                                    <span class="input-icon-addon search-icon"> <i class="zmdi zmdi-lock"></i>
+                                    </span>
+                                    <input type="text" class="form-control mb-0" name="TOKEN_SETUP"
+                                        placeholder="Nhập token setup...">
+                                </div>
+                                <div class="form-footer">
+                                    <button class="btn btn-primary btn-block">INSTALL</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{else if users}}
+                    <div class="col-lg-5 col-xl-4 col-md-6 d-block col-login mx-auto authentication" id="createAuth">
+                        <div class="card">
+                            <div class="card-body p-6">
+                                <div class="card-title text-center">Quản Trị Viên</div>
+                                <div class="input-icon form-group">
+                                    <span class="input-icon-addon search-icon">
+                                        <i class="fas fa-envelope"></i>
+                                    </span>
+                                    <input type="text" name="name" class="form-control" placeholder="Họ và tên">
+                                </div>
+                                <div class="input-icon form-group">
+                                    <span class="input-icon-addon search-icon"> <i class="fas fa-user"></i></span>
+                                    <input type="text" name="username" class="form-control" placeholder="Tên đăng nhập">
+                                </div>
+                                <div class="input-icon form-group">
+                                    <span class="input-icon-addon search-icon"> <i class="fas fa-key"></i> </span>
+                                    <input type="password" name="password" class="form-control mb-0"
+                                        placeholder="Mật khẩu">
+                                </div>
+                                <div class="form-footer">
+                                    <button type="submit" class="btn btn-primary btn-block">Tạo Tài Khoản</button>
+                                </div>
+                                <div class="flex-c-m text-center mt-5">
+                                    <a href="#" class="login100-social-item bg1">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                    <a href="#" class="login100-social-item bg2">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                    <a href="#" class="login100-social-item bg3">
+                                        <i class="fab fa-google-plus-g"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{else}}
+                    <div class="col-md-12" id="createSetting">
+                        <center>
+                            <a class="header-brand" href="#" style="color:#fff;font-weight:bold">
+                                <i class="fab fa-opencart" style="font-size: 20px; color: white;"></i> THIẾT LẬP HỆ THỐNG
+                            </a>
+                        </center>
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="" method="post">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="" class="form-label">Tên Website</label>
+                                                <input type="text" name="nameSite" class="form-control"
+                                                    placeholder="Tên của trang web, ví dụ: CLMM.VN">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="" class="form-label">Tiêu Đề</label>
+                                                <input type="text" name="defaultTitle" class="form-control"
+                                                    placeholder="Tiêu đề của trang web"
+                                                    value="Hệ Thống Mini Game Chẳn Lẻ Momo Uy Tín - Tự Động">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="" class="form-label">Icon Website</label>
+                                                <input type="text" name="favicon" class="form-control"
+                                                    placeholder="Icon của trang web" value="../assets/images/logo.png">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="" class="form-label">Thumbnail Website</label>
+                                                <input type="text" name="thumbnail" class="form-control"
+                                                    placeholder="Hìn thu nhỏ của website"
+                                                    value="https://file.coin98.com/insights/Vi%CC%81-MOMO.jpg">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="" class="form-label">Mô Tả</label>
+                                                <textarea name="description" rows="3" class="form-control"
+                                                    placeholder="Mô tả trang web">Mini game giải trí chẵn lẻ Momo uy tín và hệ thống thanh toán tự động trong 30s</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="" class="form-label">Keywords</label>
+                                                <textarea name="keywords" rows="3" class="form-control"
+                                                    placeholder="Từ khóa tìm kiếm của trang web">clmm, chanlemomo 1k, chanlemomo 5k, chanle, chan le momo, chẵn lẻ momo 1k, chanlemomo, chẵn lẻ momo 5k, chẵn lẻ tài xỉu momo, tài xỉu momo, chẵn lẻ momo uy tín, chẵn lẻ momo, clmm 1k, chẵn lẻ momo 10k, web chẵn lẻ momo 1k, đánh chẵn lẻ momo, làm web chẵn lẻ momo, chan le momo, cltx momo, mimigame momo, chẵn lẻ momo, clm, chan le momo, clmm, clmmme, chẵn lẻ momo, chẵn lẻ uy tín, kiemmomo, vanmaynet, kiemmomocom, chẵn lẻ tự động, chan le no hu, game chan le, chan le vi momo, momo tu dong</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="" class="form-label">Số Lượng Hiển Thị</label>
+                                                <input type="text" name="limitPhone" class="form-control"
+                                                    placeholder="Số lượng số điện thoại hiển thị, ex: 5">
+                                            </div>
+                                        </div>
+                                       <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="" class="form-label">Nội Dung Nạp</label>
+                                                <input type="text" name="paymentComment" class="form-control"
+                                                    placeholder="Nhập nội dung để phân biệt nạp tiền vào số" value="#naptien">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="" class="form-label">Nội Dung Rút</label>
+                                                <input type="text" name="withdrawComment" class="form-control"
+                                                    placeholder="Nhập nội dung để phân biệt khi rút tiền" value="#ruttien">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="" class="form-label">Trạng Thái Site</label>
+                                                <select name="siteStatus" class="form-control">
+                                                    <option value="active">Hoạt động</option>
+                                                    <option value="baotri">Bảo trì</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="" class="form-label">Nhiệm Vụ Ngày</label>
+                                                <select name="missionStatus" class="form-control">
+                                                    <option value="active">Bật</option>
+                                                    <option value="close">Tắt</option>
+                                                </select>
+                                            </div>
+                                            <div class="table-responsive mb-3">
+                                                <table
+                                                    class="table card-table table-vcenter text-nowrap table-bordered table-striped text-center"
+                                                    id="missionData">
+                                                    <thead class="badge-primary text-white">
+                                                        <tr>
+                                                            <th class="text-center text-white">Tổng cược ngày</th>
+                                                            <th class="text-center text-white">Tiền thưởng</th>
+                                                            <th class="text-center text-white add"><i
+                                                                    class="fas fa-plus-circle hand"></i></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="amount">1,000,000</td>
+                                                            <td class="bonus">20,000</td>
+                                                            <td class="remove">
+                                                                <span class="text-danger hand">
+                                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="amount">10,000,000</td>
+                                                            <td class="bonus">100,000</td>
+                                                            <td class="remove">
+                                                                <span class="text-danger hand">
+                                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="amount">15,000,000</td>
+                                                            <td class="bonus">200,000</td>
+                                                            <td class="remove">
+                                                                <span class="text-danger hand">
+                                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="amount">30,000,000</td>
+                                                            <td class="bonus">500,000</td>
+                                                            <td class="remove">
+                                                                <span class="text-danger hand">
+                                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="" class="form-label">TOP Tuần</label>
+                                                <select name="topStatus" class="form-control">
+                                                    <option value="active">Thưởng TOP</option>
+                                                    <option value="close">Fake TOP</option>
+                                                </select>
+                                            </div>
+                                            <div class="table-responsive mb-3">
+                                                <table
+                                                    class="table card-table table-vcenter text-nowrap table-bordered table-striped text-center"
+                                                    id="bonusData">
+                                                    <thead class="badge-primary text-white">
+                                                        <tr>
+                                                            <th class="text-center text-white">Vị trí</th>
+                                                            <th class="text-center text-white">Tiền thưởng</th>
+                                                            <th class="text-center text-white add"><i
+                                                                    class="fas fa-plus-circle hand"></i></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="top">1</td>
+                                                            <td class="bonus">250,000</td>
+                                                            <td class="remove">
+                                                                <span class="text-danger hand">
+                                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="top">2</td>
+                                                            <td class="bonus">200,000</td>
+                                                            <td class="remove">
+                                                                <span class="text-danger hand">
+                                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="top">3</td>
+                                                            <td class="bonus">150,000</td>
+                                                            <td class="remove">
+                                                                <span class="text-danger hand">
+                                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="top">4</td>
+                                                            <td class="bonus">100,000</td>
+                                                            <td class="remove">
+                                                                <span class="text-danger hand">
+                                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="top">5</td>
+                                                            <td class="bonus">50,000</td>
+                                                            <td class="remove">
+                                                                <span class="text-danger hand">
+                                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="table-responsive mb-3">
+                                                <table
+                                                    class="table card-table table-vcenter text-nowrap table-bordered table-striped text-center"
+                                                    id="fakeData">
+                                                    <thead class="badge-primary text-white">
+                                                        <tr>
+                                                            <th class="text-center text-white">Vị trí</th>
+                                                            <th class="text-center text-white">Số điện thoại</th>
+                                                            <th class="text-center text-white">Tiền thắng</th>
+                                                            <th class="text-center text-white">Tiền thưởng</th>
+                                                            <th class="text-center text-white add"><i
+                                                                    class="fas fa-plus-circle hand"></i></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="top">1</td>
+                                                            <td class="phone">098268****</td>
+                                                            <td class="amount">91,282,589</td>
+                                                            <td class="bonus">250,000</td>
+                                                            <td class="remove">
+                                                                <span class="text-danger hand">
+                                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="top">2</td>
+                                                            <td class="phone">086656****</td>
+                                                            <td class="amount">89,541,561</td>
+                                                            <td class="bonus">200,000</td>
+                                                            <td class="remove">
+                                                                <span class="text-danger hand">
+                                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="top">3</td>
+                                                            <td class="phone">097861****</td>
+                                                            <td class="amount">78,213,358</td>
+                                                            <td class="bonus">150,000</td>
+                                                            <td class="remove">
+                                                                <span class="text-danger hand">
+                                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="top">4</td>
+                                                            <td class="phone">0166667****</td>
+                                                            <td class="amount">67,713,840</td>
+                                                            <td class="bonus">100,000</td>
+                                                            <td class="remove">
+                                                                <span class="text-danger hand">
+                                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="top">5</td>
+                                                            <td class="phone">0168281****</td>
+                                                            <td class="amount">59,953,500</td>
+                                                            <td class="bonus">50,000</td>
+                                                            <td class="remove">
+                                                                <span class="text-danger hand">
+                                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="" class="form-label">Kiểu Chạy</label>
+                                                <select name="autoStatus" class="form-control">
+                                                    <option value="active">Auto Server</option>
+                                                    <option value="close">CronJobs</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="" class="form-label">Loại API</label>
+                                                <select name="typeAPI" class="form-control">
+                                                    <option value="history">Mặc định</option>
+                                                    <option value="noti">Thông báo</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="" class="form-label">Giới Hạn Quét</label>
+                                                <input type="number" name="limitGet" class="form-control" value="10"
+                                                    placeholder="Giới hạn quét lịch sử mỗi lần" required="true">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="" class="form-label">Thời Gian Quét (s)</label>
+                                                <input type="number" name="timeGet" class="form-control" value="30"
+                                                    placeholder="Thời gian cách nhau mỗi lần quét (giây)"
+                                                    required="true">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="" class="form-label">Hoàn Tiền</label>
+                                                <select name="refundStatus" class="form-control">
+                                                    <option value="active">Có</option>
+                                                    <option value="close">Không</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="" class="form-label">Thắng Hoàn ( % )</label>
+                                                <input type="number" name="refundWin" class="form-control" value="100"
+                                                    placeholder="Nếu sai hạn mức mà mã thắng thì hoàn số phần trăm, sai nội dung sẽ hoàn 100%"
+                                                    required="true">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="" class="form-label">Thua Hoàn ( % )</label>
+                                                <input type="number" name="refundWon" class="form-control" value="50"
+                                                    placeholder="Nếu sai hạn mức mà mã thua thì hoàn số phần trăm, sai nội dung sẽ hoàn 100%"
+                                                    required="true">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="" class="form-label">Giới Hạn Hoàn</label>
+                                                <input type="number" name="limitRefund" class="form-control" value="10"
+                                                    placeholder="Giới hạn số lần hoàn tiền trong 1 ngày"
+                                                    required="true">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="" class="form-label">Thông Báo</label>
+                                                <select name="notiStatus" class="form-control">
+                                                    <option value="active">Bật</option>
+                                                    <option value="close">Tắt</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="" class="form-label">Nội Dung Thông Báo</label>
+                                                <textarea name="notiData" class="form-control" placeholder="Nhập nội dung thông báo modal popup"><h5 style="color:darkcyan;text-align:center"><b>CHÀO MỪNG BẠN ĐẾN VỚI HỆ THỐNG GAME MOMO UY TÍN SỐ 1 VN</b></h5><h6 style="color: #333;text-align:center"><p>Kết quả dựa vào Mã giao dịch ví MOMO</p><p>Trả thưởng nhanh-Minh bạch-Xanh chín</p></h6><p><b class="text-danger">⚠️ Một số lưu ý của chúng tôi,người chơi mới vui lòng đọc qua trước khi chơi nhé!</b></p><div class="alert alert-warning">Hiện nay khi thành viên mới tham gia nhóm chat<b>Telegram</b>hoặc<b>Zalo</b>sẽ có một số đối tượng lừa đảo là admin hỗ trợ lỗi+cho số chơi không hiện trên web.Mọi trường hợp đó đều là lừa đảo.Chúng tôi sẽ chỉ hỗ trợ những đơn chuyển vào số hiện trên website.Hãy cảnh giác và là người chơi thông thái!</div><ol><li>Mỗi số MOMO trên web nhận tối đa 100M/tháng.Vì vậy,<b>Vui lòng F5 để reload web hoặc đợi web tự làm mới danh sách số mỗi lần chơi,phòng trường hợp đổi số điện thoại khi hết hạn mức giao dịch.</b>Chơi nhầm số tắt vui lòng báo admin trong vòng 24h vẫn trả thưởng bình thường.</li><li>Nếu bạn chiến thắng mà tiền thưởng chưa về,hãy sử dụng chức năng "TRA CỨU GIAO DỊCH".Trường hợp tra mã giao dịch báo<b style="color:#1c05bb;">" TẠM GIỮ "</b>hoặc<b style="color:#1c05bb;">" KHÔNG TÌM THẤY KẾT QUẢ "</b>vui lòng liên hệ admin ở phần HỖ TRỢ để được xử lý nhanh nhất.</li><li><strong>Thời gian tính điều kiện để nhận mã khuyến mại được tính từ lần đầu nhập mã.</strong></li></ol></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="" class="form-label">Lưu ý</label>
+                                                <textarea name="gameNote" class="form-control"
+                                                    placeholder="Lưu ý mini game"><div class="alert alert-warning" role="alert"><p>Nội dung chuyển khoản không phân biệt in hoa, thường. Nội dung phải đúng với quy định của trò chơi.</p>    <p><b>Kiểm tra chính xác số điện thoại mà bạn sắp chuyển có tình trạng là <span class="badge badge-success">Hoạt động</span> không, nếu tình trạng là <span class="badge badge-danger">Bảo trì</span> vui lòng chuyển vào số khác.</b></p>    <p>Chuyển nhầm hạn mức, sai nội dung, số <span class="badge badge-danger">Bảo trì</span> admin sẽ xem xét lại.</p>    <p>Nếu kết quả <b>Thắng</b>, bạn sẽ nhận được tiền thưởng tự động trong vòng <b>30s - 1 phút</b>. Số tiền thưởng sẽ được chuyển vào ví Momo của bạn.</p></div></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="text-center">
+                                                <button class="btn btn-block btn-primary">Install</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $('textarea[name="gameNote"]').richText()
+                            $('textarea[name="notiData"]').richText()
+                        })
+                    </script>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/vendors/jquery.sparkline.min.js"></script>
+    <script src="../assets/plugins/notify/js/rainbow.js"></script>
+    <script src="../assets/plugins/notify/js/jquery.growl.js"></script>
+    <script src="../assets/js/jquery.richtext.js"></script>
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/install.bundle.js"></script>

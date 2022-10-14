@@ -1,0 +1,141 @@
+{{> header }}
+{{> navbar }}
+<main class="container">
+    <div class="mainbar"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <img src="../assets/images/photos/spam-transfer.png" alt="" style="width: 30px">
+                        Spam Chuyển Tiền
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <a class="badge badge-primary p-3" href="./adminPanel/all-player" target="_blank">
+                            <i class="fas fa-user"></i> Tất Cả Người Chơi</a>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="form-label">Số Điện Thoại</label>
+                        <select id="listPhone" class="form-control" multiple="">
+                            {{#each phones}}
+                            <option value="{{ this.phone }}">{{ this.phone }} - {{ numberFormat this.money }}đ
+                            </option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="form-label">Người Nhận</label>
+                        <textarea id="listReceiver" class="form-control" rows="3"
+                            placeholder="Nhập số điện thoại người nhận mỗi số 1 dòng"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="form-label">Số Tiền</label>
+                        <input type="number" id="amount" class="form-control" value="100"
+                            placeholder="Nhập số tiền cần chuyển">
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="form-label">Nội Dung</label>
+                        <textarea id="listComment" class="form-control"
+                            placeholder="Nhập nội dung cần chuyển, random thì nhập nhiều dòng"></textarea>
+                    </div>
+                    <div class="text-center mb-3">
+                        <button class="btn btn-primary" id="buttonStart">
+                            <i class="fa fa-plus-circle" aria-hidden="true"></i> Tiến Hành</button>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <textarea id="success" rows="7" class="form-control" placeholder="Danh sách thành công"
+                                style="border: 1px solid green;"></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <textarea id="error" rows="7" class="form-control" placeholder="Danh sách thất bại"
+                                style="border: 1px solid red;"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{{> footer }}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#buttonStart').click(function (e) {
+            const listPhone = $('#listPhone').val();
+            const listReceiver = $('#listReceiver').val().trim().split('\n');
+            const listComment = $('#listComment').val().trim().split('\n');
+            let amount = $('#amount').val();
+
+            if (!listReceiver.length) {
+                Swal.fire('Thông báo', 'Vui lòng nhập số điện thoại người nhận!', 'warning');
+            } else if (!listPhone.length) {
+                Swal.fire('Thông báo', 'Vui lòng chọn số điện thoại!', 'warning');
+            } else if (!listComment.length) {
+                Swal.fire('Thông báo', 'Vui lòng nhập nội dung!', 'warning');
+            } else if (amount < 100) {
+                Swal.fire('Thông báo', 'Số tiền cần chuyển phải lớn hơn 100đ', 'error');
+            } else {
+                $('#success').val('');
+                $('#error').val('');
+
+                $.growl.warning({
+                    title: "<center>Thông Báo!</center>",
+                    message: `<center>Tiến hành chạy...</center>`,
+                });
+
+                $.each(listReceiver, function (index, receiver) {
+                    if (!/(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b/.test(receiver)) return;
+
+                    let phone = listPhone[Math.floor(Math.random() * listPhone.length)];
+                    let comment = listComment[Math.floor(Math.random() * listComment.length)];
+
+                    $('#buttonStart').prop('disabled', true);
+                    $('#buttonStart').html(`Đang xử lý <i class="fas fa-spinner text-white fa-spin ml-2" aria-hidden="true"></i>`);
+
+                    $.ajax({
+                        url: '../api/v1/momo/transfer',
+                        method: 'POST',
+                        dataType: 'json',
+                        data: {
+                            phone,
+                            receiver,
+                            amount,
+                            comment
+                        }
+                    }).done((res) => {
+                        $('#buttonStart').prop('disabled', false);
+                        $('#buttonStart').html(`<i class="fa fa-plus-circle" aria-hidden="true"></i> Tiến Hành`);
+
+                        if (!res.success) {
+                            $.growl.error({
+                                title: "<center>Thông Báo!</center>",
+                                message: `<center>${res.message}</center>`,
+                            });
+                        } else {
+                            $.growl.notice({
+                                title: "<center>Thông Báo!</center>",
+                                message: `<center>${phone} | ${receiver} | #${res.data.transId}</center>`,
+                            });
+                        }
+                        let html = res.success ? `${res.data.transId} | ${phone} | ${receiver} | ${amount} | ${comment}\n` : `${phone} | ${receiver} | ${amount} | ${comment} | ${res.message}\n`;
+
+                        res.success ? $('#success').val($('#success').val() + html) : $('#error').val($('#error').val() + html);
+
+                    }).fail(function () {
+                        $.growl.error({
+                            title: "<center>Thông Báo!</center>",
+                            message: `<center>Đã xảy ra lỗi!</center>`,
+                        });
+                        let html = `${phone} | ${receiver} | ${amount}${comment} | Đã xảy ra lỗi! \n`;
+
+                        $('#error').val($('#error').val() + html);
+                    })
+                })
+            }
+
+        })
+    })
+</script>

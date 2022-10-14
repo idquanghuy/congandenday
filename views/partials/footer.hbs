@@ -1,0 +1,33 @@
+<footer class="footer">
+    <div class="container">
+        <div class="row align-items-center flex-row-reverse">
+            <div class="col-md-12 col-sm-12 mt-3 mt-lg-0 text-center">
+                <b>{{ settings.nameSite }}</b> ©
+                <script>document.write(new Date().getFullYear())</script> -
+                <script>document.write(new Date().getFullYear() + 2)</script>
+            </div>
+        </div>
+    </div>
+</footer>
+<a href="#top" id="back-to-top" style="display: inline;"><i class="fa fa-angle-up"></i></a>
+<script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
+<script src="../assets/js/vendors/popper.min.js"></script>
+<script src="../assets/js/vendors/bootstrap.min.js"></script>
+<script src="../assets/js/vendors/jquery.sparkline.min.js"></script>
+<script src="../assets/js/sticky.js"></script>
+<script src="../assets/js/clipboard.js"></script>
+<script src="../assets/js/jquery.mousewheel.min.js"></script>
+{{!--
+<script src="../assets/js/love.js"></script>
+--}}
+<script src="../assets/plugins/notify/js/rainbow.js"></script>
+<script src="../assets/plugins/notify/js/jquery.growl.js"></script>
+<script src="../assets/js/jquery.richtext.js"></script>
+<script src="../assets/plugins/select2/select2.full.min.js"></script>
+<script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
+<script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+<script src="../assets/plugins/pusher/pusher.min.js"></script>
+<script src="../assets/js/app.js"></script>
+<script type="text/javascript">
+    let appKey = "{{ PUSHER_APP_KEY }}";
+</script>

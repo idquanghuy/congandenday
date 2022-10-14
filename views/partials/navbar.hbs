@@ -1,0 +1,84 @@
+<div id="global-loader"></div>
+<style>
+    @media (min-width: 991px) {
+        .mainbar {
+            height: 40px;
+        }
+    }
+</style>
+<div class="page">
+    <div class="page-main">
+        <div class="header">
+            <div class="container">
+                <div class="d-flex">
+                    <a href="#" class="header-toggler d-lg-none ml-3 ml-lg-0" data-toggle="collapse"
+                        data-target="#headerMenuCollapse">
+                        <span class="header-toggler-icon"></span>
+                    </a>
+                    <a class="header-brand" href="../" style="color:#fff;font-weight:bold">
+                        <i class="fab fa-opencart" style="font-size: 25px;"></i> {{ settings.nameSite }}</a>
+                </div>
+            </div>
+        </div>
+        <div class="admin-navbar sticky" id="headerMenuCollapse">
+            <div class="container">
+                <ul class="nav">
+                    <li class="nav-item with-sub">
+                        <a class="nav-link" href="../adminPanel/dashboard">
+                            <i class="fas fa-home"></i>
+                            <span>Tổng Quan</span>
+                        </a>
+                    </li>
+                    <li class="nav-item with-sub">
+                        <a class="nav-link" href="../adminPanel/system">
+                            <i class="fas fa-cogs"></i>
+                            <span>Cài Đặt Hệ Thống</span>
+                        </a>
+                    </li>
+                    <li class="nav-item with-sub">
+                        <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown">
+                            <i class="fas fa-gamepad"></i> Mini Game
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-arrow">
+                            <a href="../adminPanel/game" class="dropdown-item">Quản Lý Game</a>
+                            <a href="../adminPanel/reward" class="dropdown-item">Quản Lý Trả Thưởng</a>
+                            <a href="../adminPanel/player" class="dropdown-item">Danh Sách Người Chơi</a>
+                            <a href="../adminPanel/block-player" class="dropdown-item">Danh Sách Đen</a>
+                            <a href="../adminPanel/jackpot" class="dropdown-item">Danh Sách Chơi Nổ Hũ</a>
+                            <a href="../adminPanel/history-jackpot" class="dropdown-item">Lịch Sử Nổ Hũ</a>
+                            <a href="../adminPanel/muster" class="dropdown-item">Danh Sách Điểm Danh</a>
+                        </div>
+                    </li>
+                    <li class="nav-item with-sub">
+                        <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown">
+                            <i class="fas fa-wallet"></i> Ví Momo
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-arrow">
+                            <a href="../adminPanel/momo" class="dropdown-item">Danh Sách Tài Khoản</a>
+                            <a href="../adminPanel/transfer" class="dropdown-item">Chuyển Tiền</a>
+                            <a href="../adminPanel/history" class="dropdown-item">Lịch Sử Giao Dịch</a>
+                            <a href="../adminPanel/history-transfer" class="dropdown-item">Lịch Sử Chuyển Tiền</a>
+                            <a href="../adminPanel/history?status=error" class="dropdown-item">Lịch Sử Lỗi</a>
+                        </div>
+                    </li>
+                    <li class="nav-item with-sub">
+                        <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown">
+                            <i class="fa fa-tools"></i> Công Cụ
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-arrow">
+                            <a href="../adminPanel/spam-tools" class="dropdown-item">Spam Chuyển Tiền</a>
+                        </div>
+                    </li>
+                    <li class="nav-item with-sub">
+                        <a href="../adminPanel/list-account" class="nav-link">
+                            <i class="fas fa-user"></i> Danh Sách Tài Khoản
+                        </a>
+                    </li>
+                    <li class="nav-item with-sub">
+                        <a href="../adminPanel/logout" class="nav-link">
+                            <i class="fa fa-sign-out" aria-hidden="true"></i> Đăng Xuất
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>

@@ -1,0 +1,124 @@
+{{> header }}
+{{> navbar }}
+
+<main class="container">
+    <div class="mainbar"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <img src="../assets/images/photos/user-list.png" alt="" style="width: 30px">
+                        Danh Sách Người Chơi
+                    </h3>
+                    <div class="card-options">
+                        <form action="" method="get" id="formPage">
+                            <div class="input-group">
+                                <select name="perPage" class="form-control form-control-sm"
+                                    onchange="$('#formPage').submit();">
+                                    {{#select perPage}}
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="200">200</option>
+                                    <option value="500">500</option>
+                                    <option value="1000">1000</option>
+                                    {{/select}}
+                                </select>
+                            </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="" class="form-label">Số điện thoại</label>
+                                <input type="text" name="phone" class="form-control" value="{{ phone }}"
+                                    placeholder="Nhập số điện thoại">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="" class="form-label">Từ ngày</label>
+                                <input type="date" name="startTime" class="form-control" value="{{ startTime }}">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="" class="form-label">Đến ngày</label>
+                                <input type="date" name="endTime" class="form-control" value="{{ endTime }}">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="" class="form-label">Theo ngày</label>
+                                <input type="date" name="dateTime" class="form-control" value="{{ dateTime }}">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="" class="form-label">ㅤ</label>
+                                <button class="btn btn-primary">
+                                    <i class="fa fa-search"></i> <span class="d-lg-none">Tìm kiếm</span>
+                                </button>
+                                <a href="..{{ originalUrl.pathname }}" class="btn btn-light text-danger">
+                                    <i class="fas fa-times-circle"></i> <span class="d-lg-none">Xóa lọc</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                    <div class="table-responsive mb-3">
+                        <table
+                            class="table card-table table-vcenter text-nowrap table-bordered table-striped text-center">
+                            <thead class="badge-primary text-white">
+                                <tr>
+                                    <th class="text-white">Số Điện Thoại</th>
+                                    <th class="text-white">Tổng Cược</th>
+                                    <th class="text-white">Tổng Thắng</th>
+                                    <th class="text-white">Lợi Nhuận</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each players}}
+                                <tr>
+                                    <td>{{ this._id }}</td>
+                                    <td>{{ numberFormat this.amount }}đ</td>
+                                    <td>{{ numberFormat this.bonus }}đ</td>
+                                    <td>{{ numberFormat (minus this.bonus this.amount)}}đ</td>
+                                </tr>
+                                {{else}}
+                                <tr>
+                                    <td colspan="12">
+                                        <div class="text-center">
+                                            <img src="../assets/images/photos/404.png">
+                                            <p class="font-weight-bold">Không tìm thấy dữ liệu...</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mb-3">
+                        <ul class="pagination-container">
+                            {{#paginate pagination type="previous"}}
+                            <li {{#if disabled}}class="page-item page-prev disabled" {{/if}}>
+                                <a class="page-link"
+                                    href="{{ baseURL }}?{{#if query }}{{ query }}&page={{n}}{{else}}page={{n}}{{/if}}">Prev</a>
+                            </li>
+                            {{/paginate}}
+                            {{#paginate pagination type="middle" limit=pagination.limit}}
+                            <li {{#if active}}class="page-item active" {{/if}}>
+                                <a class="page-link"
+                                    href="{{ baseURL }}?{{#if query }}{{ query }}&page={{n}}{{else}}page={{n}}{{/if}}">{{n}}</a>
+                            </li>
+                            {{/paginate}}
+                            {{#paginate pagination type="next"}}
+                            <li {{#if disabled}}class="page-item page-next disabled" {{/if}}>
+                                <a class="page-link"
+                                    href="{{ baseURL }}?{{#if query }}{{ query }}&page={{n}}{{else}}page={{n}}{{/if}}">Next</a>
+                            </li>
+                            {{/paginate}}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{{> footer }}
